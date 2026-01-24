@@ -1,73 +1,54 @@
-# React + TypeScript + Vite
+# Bokku Navigation + Routing
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project uses React + TypeScript + Vite and adds a full navigation bar with client-side routing and distinct pages.
 
-Currently, two official plugins are available:
+## What each file does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### `src/main.tsx`
+- Bootstraps the React app and mounts `<App />` inside `#root`.
+- Imports `src/index.css` so all global styles are applied.
 
-## React Compiler
+### `src/App.tsx`
+- Sets up the router with `BrowserRouter`, `Routes`, and `Route`.
+- Defines a reusable `Page` component that prints a page title and content so each route clearly proves which page is open.
+- Builds the navbar:
+  - **Home**
+  - **All Products**
+  - **Career**
+  - **Work With Us** (parent route)
+    - **Supplier** (sub-link)
+    - **Landlord Agencies** (sub-link)
+  - **Locations**
+  - **About Us**
+- Uses `NavLink` with a helper (`navLinkClass`) so the active route gets an `active` class automatically.
+- Adds inline links on the **Work With Us** page so users can reach the subpages from content too.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### `src/index.css`
+- Defines CSS variables for colors and reuses them throughout.
+- Sets a **dark blue** navbar background and **white** text.
+- Applies **yellow** styling for hover and active states.
+- Adds motion for:
+  - **hover** (`transform` + color change),
+  - **active/click** (`:active` scale + shadow),
+  - **active route** (yellow + small pop animation).
+- Styles the dropdown submenu for **Work With Us** and a responsive layout for smaller screens.
 
-## Expanding the ESLint configuration
+## Routes summary
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Route | Page title | Purpose |
+|------|------------|---------|
+| `/` | Home | Main landing page |
+| `/products` | All Products | Product listing page |
+| `/career` | Career | Jobs and growth |
+| `/work-with-us` | Work With Us | Partner overview |
+| `/work-with-us/supplier` | Supplier | Supplier partnerships |
+| `/work-with-us/landlord-agencies` | Landlord Agencies | Property partnerships |
+| `/locations` | Locations | Operating regions |
+| `/about` | About Us | Company story |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Running the app
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
