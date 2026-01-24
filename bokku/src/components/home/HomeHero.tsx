@@ -83,7 +83,7 @@ const HomeHero = () => {
 
   return (
     <section className="home-hero">
-      <div className="home-hero__categories">
+      <div className="home-hero__categories reveal-left">
         <div className="eyebrow">Shop by category</div>
         <h2>Everything you need, curated daily.</h2>
         <p>
@@ -121,8 +121,8 @@ const HomeHero = () => {
           })}
         </div>
       </div>
-      <div className="home-hero__slider">
-        <div className="slider-frame">
+      <div className="home-hero__slider reveal">
+        <div className="slider-frame reveal">
           {slides.map((slide, index) => (
             <Link
               key={slide.id}
@@ -136,7 +136,7 @@ const HomeHero = () => {
             </Link>
           ))}
         </div>
-        <div className="slider-controls">
+        <div className="slider-controls reveal">
           <button type="button" onClick={prevSlide} aria-label="Previous slide">
             Prev
           </button>

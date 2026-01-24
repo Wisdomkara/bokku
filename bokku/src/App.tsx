@@ -2,6 +2,7 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import { useMemo, useState } from "react";
 import AboutPage from "./pages/AboutPage";
 import CareerPage from "./pages/CareerPage";
+import ExploreArticlePage from "./pages/ExploreArticlePage";
 import FaqPage from "./pages/FaqPage";
 import HomePage from "./pages/HomePage";
 import LandlordAgenciesPage from "./pages/LandlordAgenciesPage";
@@ -11,6 +12,7 @@ import ProductsPage from "./pages/ProductsPage";
 import SupplierPage from "./pages/SupplierPage";
 import WorkWithUsPage from "./pages/WorkWithUsPage";
 import { products } from "./data/products";
+import Footer from "./components/Footer";
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `nav-link${isActive ? " active" : ""}`;
@@ -226,8 +228,10 @@ const App = () => {
             <Route path="/locations" element={<LocationsPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/faq" element={<FaqPage />} />
+            <Route path="/explore/:slug" element={<ExploreArticlePage />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </BrowserRouter>
   );

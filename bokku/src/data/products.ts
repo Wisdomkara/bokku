@@ -5,6 +5,7 @@ export type Product = {
   price: string;
   description: string;
   image: string;
+  isTopSelling?: boolean;
 };
 
 export const products: Product[] = [
@@ -15,6 +16,7 @@ export const products: Product[] = [
     price: "$6.80",
     description: "Naturally leavened bread with a crisp crust and tender crumb.",
     image: "/images/products/artisan-sourdough.jpg",
+    isTopSelling: true,
   },
   {
     slug: "farmhouse-eggs",
@@ -31,6 +33,7 @@ export const products: Product[] = [
     price: "$11.40",
     description: "Long-grain rice for everyday bowls and family dinners.",
     image: "/images/products/pantry-rice-bag.jpg",
+    isTopSelling: true,
   },
   {
     slug: "heirloom-olive-oil",
@@ -47,6 +50,7 @@ export const products: Product[] = [
     price: "$5.60",
     description: "Plant-based cleaner with a light citrus scent.",
     image: "/images/products/surface-sparkle-cleaner.jpg",
+    isTopSelling: true,
   },
   {
     slug: "soft-touch-laundry",
@@ -63,6 +67,7 @@ export const products: Product[] = [
     price: "$3.40",
     description: "Lightly sweetened soda with real berry juice.",
     image: "/images/products/sparkling-berry-soda.jpg",
+    isTopSelling: true,
   },
   {
     slug: "cold-brew-kit",
@@ -79,6 +84,7 @@ export const products: Product[] = [
     price: "$4.10",
     description: "Crisp crackers made with slow-baked grains.",
     image: "/images/products/sea-salt-crackers.jpg",
+    isTopSelling: true,
   },
   {
     slug: "dark-chocolate-bites",
@@ -95,6 +101,7 @@ export const products: Product[] = [
     price: "$16.70",
     description: "Hydrating serum with vitamin C and peptides.",
     image: "/images/products/glow-skin-serum.jpg",
+    isTopSelling: true,
   },
   {
     slug: "herbal-body-wash",

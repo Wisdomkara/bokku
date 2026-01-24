@@ -33,7 +33,7 @@ const CategoryGrid = () => {
 
   return (
     <section className="category-grid-section">
-      <div className="category-grid-header">
+      <div className="category-grid-header reveal">
         <h2>Browse by category</h2>
         <p>Pick a lane and see every product within that collection.</p>
       </div>
@@ -41,7 +41,7 @@ const CategoryGrid = () => {
         {categories.map((category) => (
           <Link
             key={category.name}
-            className="category-grid-card"
+            className="category-grid-card reveal"
             to={`/products?category=${encodeURIComponent(category.name)}`}
           >
             <div className="category-grid-image">
