@@ -54,7 +54,7 @@ const useGsapReveal = (
     }, container);
 
     return () => ctx.revert();
-  }, [containerRef, options.selector, options.stagger, options.y]);
+  }, [containerRef, options.selector, options.stagger, options.x, options.y]);
 };
 
 export default useGsapReveal;

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
 
 :root {
   --nav-bg: #0000ff;
@@ -376,6 +377,7 @@ a {
   border-radius: 999px;
   font-weight: 600;
   font-size: 0.8rem;
+  background-position: cover;
 }
 
 .locations-grid {
@@ -1777,3 +1779,15 @@ a {
 }
 
 
+
+@keyframes hero-blob {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(18px, -22px, 0) scale(1.06);
+  }
+  100% {
+    transform: translate3d(-12px, 16px, 0) scale(0.98);
+  }
+}

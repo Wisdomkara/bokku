@@ -9,12 +9,12 @@ type CategoryInfo = {
 
 const CategoryGrid = () => {
   const categoryImages: Record<string, string> = {
-    "Bakery and fresh food": "/images/categories/bakery-fresh.jpg",
-    "Groceries and pantry staple": "/images/categories/pantry.jpg",
-    "Household and cleaning supplies": "/images/categories/household.jpg",
-    Beverages: "/images/categories/beverages.jpg",
-    Snacks: "/images/categories/snacks.jpg",
-    "Health and beauty": "/images/categories/health-beauty.jpg",
+    "Bakery and fresh food": "/categoryimages/breadcategory.jpg",
+    "Groceries and pantry staple": "/categoryimages/groceries.jpg",
+    "Household and cleaning supplies": "/categoryimages/clean.jpg",
+    Beverages: "/categoryimages/Drinks.jpg",
+    Snacks: "/categoryimages/snack.jpg",
+    "Health and beauty": "/categoryimages/beauty.jpg",
   };
 
   const categories = products.reduce<CategoryInfo[]>((acc, product) => {
@@ -32,26 +32,44 @@ const CategoryGrid = () => {
   }, []);
 
   return (
-    <section className="category-grid-section">
-      <div className="category-grid-header reveal">
-        <h2>Browse by category</h2>
-        <p>Pick a lane and see every product within that collection.</p>
-      </div>
-      <div className="category-grid-cards">
-        {categories.map((category) => (
-          <Link
-            key={category.name}
-            className="category-grid-card reveal"
-            to={`/products?category=${encodeURIComponent(category.name)}`}
-          >
-            <div className="category-grid-image">
-              <img src={category.image} alt={category.name} />
-            </div>
-            <span className="category-title">{category.name}</span>
-            <span className="category-count">{category.count} items</span>
-            <span className="category-link">View products</span>
-          </Link>
-        ))}
+    <section className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 px-6 pb-4 pt-6 md:px-12 lg:px-16">
+      <div className="mx-auto w-full max-w-7xl xl:max-w-[1400px]">
+        <div className="reveal mb-6 flex max-w-3xl flex-col gap-2">
+          <h2 className="text-2xl font-semibold text-slate-900 md:text-3xl">
+            Browse by category
+          </h2>
+          <p className="text-sm leading-6 text-slate-700 md:text-base">
+            Pick a lane and see every product within that collection.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {categories.map((category) => (
+            <Link
+              key={category.name}
+              to={`/products?category=${encodeURIComponent(category.name)}`}
+              className="reveal group flex min-h-[260px] flex-col gap-3 rounded-2xl border border-slate-900/5 bg-white p-5 text-slate-900 shadow-[0_18px_40px_rgba(11,18,41,0.08)] transition hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(11,18,41,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300/70"
+            >
+              <div className="h-44 overflow-hidden rounded-xl bg-slate-900">
+                <img
+                  src={category.image}
+                  alt={category.name}
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+              </div>
+
+              <span className="text-base font-semibold text-slate-900">
+                {category.name}
+              </span>
+              <span className="text-sm font-medium text-slate-600">
+                {category.count} items
+              </span>
+              <span className="mt-auto inline-flex w-fit items-center rounded-full bg-yellow-300 px-3 py-1.5 text-xs font-semibold text-slate-900 transition group-hover:bg-yellow-200">
+                View products
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -8,6 +8,35 @@ type GeoPosition = {
   lng: number;
 };
 
+type GoogleMap = {
+  fitBounds: (bounds: GoogleLatLngBounds) => void;
+  setCenter: (position: GeoPosition) => void;
+  setZoom: (zoom: number) => void;
+};
+
+type GoogleMarker = object;
+
+type GoogleLatLngBounds = {
+  extend: (position: GeoPosition) => void;
+  getCenter: () => GeoPosition;
+};
+
+type GoogleMapsNamespace = {
+  maps: {
+    Map: new (element: HTMLElement, options: Record<string, unknown>) => GoogleMap;
+    Marker: new (options: {
+      position: GeoPosition;
+      map: GoogleMap;
+      title: string;
+    }) => GoogleMarker;
+    LatLngBounds: new () => GoogleLatLngBounds;
+  };
+};
+
+type GoogleMapsWindow = Window & {
+  google?: GoogleMapsNamespace;
+};
+
 const LocationsPage = () => {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined;
   const [query, setQuery] = useState("");
@@ -18,8 +47,8 @@ const LocationsPage = () => {
   const [missingImages, setMissingImages] = useState<Record<number, boolean>>({});
   const [imageSources, setImageSources] = useState<Record<number, string>>({});
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
-  const mapInstanceRef = useRef<any>(null);
-  const markersRef = useRef<any[]>([]);
+  const mapInstanceRef = useRef<GoogleMap | null>(null);
+  const markersRef = useRef<GoogleMarker[]>([]);
 
   const requestLocation = () => {
     if (!navigator.geolocation) {
@@ -43,14 +72,17 @@ const LocationsPage = () => {
   };
 
   useEffect(() => {
-    requestLocation();
+    const timeoutId = window.setTimeout(() => {
+      requestLocation();
+    }, 0);
+    return () => window.clearTimeout(timeoutId);
   }, []);
 
   useEffect(() => {
     if (!apiKey || !mapContainerRef.current || mapInstanceRef.current) return;
 
     const initializeMap = () => {
-      const googleMaps = (window as any).google as any;
+      const googleMaps = (window as GoogleMapsWindow).google;
       if (!googleMaps || !mapContainerRef.current) return;
 
       const center = locations.reduce(
