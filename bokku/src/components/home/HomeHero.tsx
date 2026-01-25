@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
-import { products } from "../../data/products";
 
 type Slide = {
   id: string;
@@ -48,6 +46,46 @@ const slides: Slide[] = [
   },
 ];
 
+// Mock products data
+const products = [
+  {
+    name: "Artisan Sourdough",
+    slug: "artisan-sourdough",
+    category: "Bakery and fresh food",
+  },
+  {
+    name: "Whole Grain Bread",
+    slug: "whole-grain-bread",
+    category: "Bakery and fresh food",
+  },
+  {
+    name: "Rice Bag 5kg",
+    slug: "pantry-rice-bag",
+    category: "Groceries and pantry staple",
+  },
+  {
+    name: "Olive Oil",
+    slug: "olive-oil",
+    category: "Groceries and pantry staple",
+  },
+  {
+    name: "Surface Cleaner",
+    slug: "surface-sparkle-cleaner",
+    category: "Household and cleaning supplies",
+  },
+  {
+    name: "Laundry Detergent",
+    slug: "laundry-detergent",
+    category: "Household and cleaning supplies",
+  },
+  { name: "Orange Juice", slug: "orange-juice", category: "Beverages" },
+  { name: "Coffee Beans", slug: "coffee-beans", category: "Beverages" },
+  { name: "Sea Salt Crackers", slug: "sea-salt-crackers", category: "Snacks" },
+  { name: "Mixed Nuts", slug: "mixed-nuts", category: "Snacks" },
+  { name: "Hand Soap", slug: "hand-soap", category: "Health and beauty" },
+  { name: "Shampoo", slug: "shampoo", category: "Health and beauty" },
+];
+
 const categories = [
   "Bakery and fresh food",
   "Groceries and pantry staple",
@@ -59,7 +97,9 @@ const categories = [
 
 const HomeHero = () => {
   const [activeSlide, setActiveSlide] = useState(0);
-  const [openCategory, setOpenCategory] = useState<string | null>(categories[0]);
+  const [openCategory, setOpenCategory] = useState<string | null>(
+    categories[0],
+  );
 
   const productsByCategory = useMemo(() => {
     return categories.map((category) => ({
@@ -82,14 +122,14 @@ const HomeHero = () => {
   }, []);
 
   return (
-    <section className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 overflow-hidden px-6 py-10 md:px-12 lg:px-16">
+    <section className="relative left-1/2 right-1/2 mb-6 min-h-screen w-screen -translate-x-1/2 overflow-hidden px-6 pb-10 pt-0 md:px-12 lg:px-16">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -left-24 top-[-6rem] h-72 w-72 rounded-full bg-white/60 blur-3xl animate-[hero-blob_38s_ease-in-out_infinite]" />
         <div className="absolute bottom-[-8rem] right-[-4rem] h-80 w-80 rounded-full bg-white/50 blur-3xl animate-[hero-blob_46s_ease-in-out_infinite] [animation-delay:-12s]" />
       </div>
 
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.4fr)] lg:items-stretch lg:gap-12">
-        <div className="reveal-left flex flex-col gap-5">
+      <div className="grid min-h-screen w-full grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.4fr)] lg:items-stretch lg:gap-12">
+        <div className="reveal-left flex h-full flex-col gap-5">
           <div className="text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-blue-700">
             Shop by category
           </div>
@@ -97,11 +137,11 @@ const HomeHero = () => {
             Nigeria's FIRST hard discount store
           </h2>
           <p className="max-w-xl text-sm leading-6 text-blue-700/90 md:text-base">
-            Jump into a category or go straight to a product detail to see prices,
-            descriptions, and delivery options.
+            Jump into a category or go straight to a product detail to see
+            prices, descriptions, and delivery options.
           </p>
 
-          <div className="flex flex-col gap-2 rounded-2xl border border-slate-900/5 bg-white/90 p-4 shadow-[0_18px_40px_rgba(11,31,74,0.12)] backdrop-blur">
+          <div className="flex flex-1 flex-col gap-2 overflow-auto rounded-2xl border border-slate-900/5 bg-white/90 p-4 shadow-[0_18px_40px_rgba(11,31,74,0.12)] backdrop-blur">
             {productsByCategory.map(({ category, items }) => {
               const isOpen = openCategory === category;
               return (
@@ -126,20 +166,20 @@ const HomeHero = () => {
                   {isOpen && (
                     <div className="mt-2 flex flex-col gap-1 pb-2">
                       {items.map((item) => (
-                        <Link
+                        <a
                           key={item.slug}
-                          to={`/products/${item.slug}`}
+                          href={`/products/${item.slug}`}
                           className="rounded-lg bg-blue-50 px-3 py-2 text-sm font-medium text-blue-700 transition hover:-translate-y-0.5 hover:bg-blue-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
                         >
                           {item.name}
-                        </Link>
+                        </a>
                       ))}
-                      <Link
+                      <a
                         className="mt-1 inline-flex w-fit items-center rounded-full bg-yellow-300 px-3 py-1.5 text-xs font-semibold text-slate-900 transition hover:bg-yellow-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300/70"
-                        to="/products"
+                        href="/products"
                       >
                         View all
-                      </Link>
+                      </a>
                     </div>
                   )}
                 </div>
@@ -148,14 +188,14 @@ const HomeHero = () => {
           </div>
         </div>
 
-        <div className="reveal flex flex-col gap-4">
-          <div className="reveal relative min-h-[65vh] overflow-hidden rounded-3xl bg-slate-950 shadow-[0_30px_80px_rgba(255,214,0,0.22)]">
+        <div className="reveal flex h-full w-full flex-col gap-4">
+          <div className="reveal relative flex-1 w-full overflow-hidden rounded-3xl bg-slate-950 shadow-[0_30px_80px_rgba(255,214,0,0.22)]">
             {slides.map((slide, index) => {
               const isActive = index === activeSlide;
               return (
-                <Link
+                <a
                   key={slide.id}
-                  to={slide.link}
+                  href={slide.link}
                   className={`absolute inset-0 flex transition-all duration-500 ${
                     isActive
                       ? "z-10 scale-100 opacity-100"
@@ -173,7 +213,7 @@ const HomeHero = () => {
                   <div className="absolute bottom-4 left-4 rounded-full bg-yellow-300 px-4 py-2 text-sm font-semibold text-slate-900 shadow-md">
                     {slide.label}
                   </div>
-                </Link>
+                </a>
               );
             })}
           </div>
