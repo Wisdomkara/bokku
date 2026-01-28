@@ -32,13 +32,13 @@ export const locations: Location[] = [
         "state":  "Lagos",
         "phone":  "+234 808 321 9480",
         "hours":  {
-                      "mon":  "09:00-18:00",
-                      "tue":  "09:00-18:00",
-                      "wed":  "09:00-18:00",
-                      "thu":  "09:00-18:00",
-                      "fri":  "09:00-18:00",
-                      "sat":  "09:00-17:00",
-                      "sun":  "09:00-17:00"
+                      "mon":  "09:00-21:00",
+                      "tue":  "09:00-21:00",
+                      "wed":  "09:00-21:00",
+                      "thu":  "09:00-21:00",
+                      "fri":  "09:00-21:00",
+                      "sat":  "09:00-21:00",
+                      "sun":  "09:00-21:00"
                   },
         "imageUrl":  null
     },
@@ -53,13 +53,13 @@ export const locations: Location[] = [
         "state":  "Lagos",
         "phone":  null,
         "hours":  {
-                      "mon":  "09:00-18:00",
-                      "tue":  "09:00-18:00",
-                      "wed":  "09:00-18:00",
-                      "thu":  "09:00-18:00",
-                      "fri":  "09:00-18:00",
-                      "sat":  "09:00-18:00",
-                      "sun":  "09:00-18:00"
+                      "mon":  "09:00-21:00",
+                      "tue":  "09:00-21:00",
+                      "wed":  "09:00-21:00",
+                      "thu":  "09:00-21:00",
+                      "fri":  "09:00-21:00",
+                      "sat":  "09:00-21:00",
+                      "sun":  "09:00-21:00"
                   },
         "imageUrl":  null
     },
@@ -1455,9 +1455,9 @@ export const locations: Location[] = [
         "slug":  "bokku-mart-ewusi-sagamu-sagamu-ipinle-ogun",
         "lat":  6.8521505,
         "lng":  3.6341698,
-        "address":  "Ewusi Street, Sagamu, 121102, Ìpínl?` Ògùn, Nigeria",
+        "address":  "Ewusi Street, Sagamu, 121102, ï¿½pï¿½nl?` ï¿½gï¿½n, Nigeria",
         "city":  "Sagamu",
-        "state":  "Ìpínl?` Ògùn",
+        "state":  "ï¿½pï¿½nl?` ï¿½gï¿½n",
         "phone":  null,
         "hours":  {
                       "mon":  "09:00-21:00",
@@ -3209,7 +3209,7 @@ export const locations: Location[] = [
                       "thu":  "09:00-21:00",
                       "fri":  "09:00-21:00",
                       "sat":  "09:00-21:00",
-                      "sun":  "09:00-17:00"
+                      "sun":  "09:00-21:00"
                   },
         "imageUrl":  null
     },
@@ -3586,8 +3586,8 @@ export const locations: Location[] = [
                       "wed":  "09:00-21:00",
                       "thu":  "09:00-21:00",
                       "fri":  "09:00-21:00",
-                      "sat":  "09:00-17:00",
-                      "sun":  "09:00-17:00"
+                      "sat":  "09:00-21:00",
+                      "sun":  "09:00-21:00"
                   },
         "imageUrl":  null
     },

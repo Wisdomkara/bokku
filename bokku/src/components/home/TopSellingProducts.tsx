@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { getCategoryImage } from "../../data/categoryImages";
 import { products } from "../../data/products";
 
 const TopSellingProducts = () => {
@@ -9,6 +10,9 @@ const TopSellingProducts = () => {
       <div className="top-selling__header reveal">
         <h2>Top selling products</h2>
         <p>These are the items customers love most right now.</p>
+        <Link className="top-selling__link" to="/products?topSelling=true">
+          View all top selling
+        </Link>
       </div>
       <div className="top-selling__grid">
         {topSelling.map((product) => (
@@ -18,7 +22,7 @@ const TopSellingProducts = () => {
             to={`/products/${product.slug}`}
           >
             <div className="top-selling__image">
-              <img src={product.image} alt={product.name} />
+              <img src={getCategoryImage(product.category)} alt={product.name} />
             </div>
             <div className="top-selling__body">
               <h3>{product.name}</h3>

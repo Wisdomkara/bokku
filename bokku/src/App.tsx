@@ -1,5 +1,5 @@
-import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
-import { useMemo, useState } from "react";
+import { BrowserRouter, NavLink, Route, Routes, useLocation } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
 import AboutPage from "./pages/AboutPage";
 import CareerPage from "./pages/CareerPage";
 import ExploreArticlePage from "./pages/ExploreArticlePage";
@@ -11,7 +11,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import ProductsPage from "./pages/ProductsPage";
 import SupplierPage from "./pages/SupplierPage";
 import WorkWithUsPage from "./pages/WorkWithUsPage";
-import { products } from "./data/products";
+import { searchItems } from "./data/searchIndex";
 import Footer from "./components/Footer";
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
@@ -23,87 +23,19 @@ const navLinkClass = ({ isActive }: { isActive: boolean }) =>
       : "text-white/90 hover:-translate-y-0.5 hover:text-yellow-300",
   ].join(" ");
 
+const ScrollToTop = () => {
+  const { pathname, search, hash } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pathname, search, hash]);
+
+  return null;
+};
+
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
-
-  const searchItems = useMemo(() => {
-    const pages = [
-      {
-        label: "Home",
-        path: "/",
-        type: "Page",
-        keywords: "home landing main bokku",
-        content: "Welcome to the Bokku home page. This is the main landing area.",
-      },
-      {
-        label: "All Products",
-        path: "/products",
-        type: "Page",
-        keywords: "all products catalog list items inventory",
-        content: "This is the All Products page where every item will be listed.",
-      },
-      {
-        label: "Career",
-        path: "/career",
-        type: "Page",
-        keywords: "career jobs roles hiring growth",
-        content: "This is the Career page showing open roles and growth paths.",
-      },
-      {
-        label: "Work With Us",
-        path: "/work-with-us",
-        type: "Page",
-        keywords: "partners work with us collaboration suppliers",
-        content: "This is the Work With Us page. Choose a partner path below.",
-      },
-      {
-        label: "Supplier",
-        path: "/work-with-us/supplier",
-        type: "Partner",
-        keywords: "supplier vendor inventory supply",
-        content: "This is the Supplier page for vendors who want to work with Bokku.",
-      },
-      {
-        label: "Landlord Agencies",
-        path: "/work-with-us/landlord-agencies",
-        type: "Partner",
-        keywords: "landlord agencies property partnerships",
-        content: "This is the Landlord Agencies page for property partnerships.",
-      },
-      {
-        label: "Locations",
-        path: "/locations",
-        type: "Page",
-        keywords: "locations areas cities coverage",
-        content: "This is the Locations page listing our operating areas.",
-      },
-      {
-        label: "About Us",
-        path: "/about",
-        type: "Page",
-        keywords: "about story company bokku",
-        content: "This is the About Us page telling the Bokku story.",
-      },
-      {
-        label: "FAQ",
-        path: "/faq",
-        type: "Page",
-        keywords: "faq support questions help",
-        content: "Answers to the most common questions about shopping with Bokku.",
-      },
-    ];
-
-    const productItems = products.map((product) => ({
-      label: product.name,
-      path: `/products/${product.slug}`,
-      type: "Product",
-      keywords: product.category,
-      content: product.description,
-    }));
-
-    return [...pages, ...productItems];
-  }, []);
 
   const normalizedQuery = query.trim().toLowerCase();
   const searchResults = useMemo(() => {
@@ -122,15 +54,20 @@ const App = () => {
   return (
     <BrowserRouter>
       <div className="app-shell">
+        <ScrollToTop />
         <nav
           className="sticky top-0 z-30 border-b border-white/10 bg-blue-700 text-white shadow-[0_10px_30px_rgba(11,31,74,0.35)] backdrop-blur"
           aria-label="Primary"
         >
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 py-4 md:flex-row md:items-center md:gap-6 md:px-8">
             <div className="flex w-full items-center justify-between gap-3 md:w-auto">
-              <div className="text-xl font-semibold tracking-wide text-yellow-300">
-                Bokku!
-              </div>
+            <NavLink
+              className="text-xl font-semibold tracking-wide text-yellow-300"
+              to="/"
+              onClick={closeMenu}
+            >
+              Bokku!
+            </NavLink>
               <button
                 className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/20 bg-white/10 text-lg text-white transition hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300/70 md:hidden"
                 type="button"

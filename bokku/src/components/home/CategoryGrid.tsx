@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { getCategoryImage } from "../../data/categoryImages";
 import { products } from "../../data/products";
 
 type CategoryInfo = {
@@ -8,15 +9,6 @@ type CategoryInfo = {
 };
 
 const CategoryGrid = () => {
-  const categoryImages: Record<string, string> = {
-    "Bakery and fresh food": "/categoryimages/breadcategory.jpg",
-    "Groceries and pantry staple": "/categoryimages/groceries.jpg",
-    "Household and cleaning supplies": "/categoryimages/clean.jpg",
-    Beverages: "/categoryimages/Drinks.jpg",
-    Snacks: "/categoryimages/snack.jpg",
-    "Health and beauty": "/categoryimages/beauty.jpg",
-  };
-
   const categories = products.reduce<CategoryInfo[]>((acc, product) => {
     const existing = acc.find((item) => item.name === product.category);
     if (existing) {
@@ -25,21 +17,23 @@ const CategoryGrid = () => {
       acc.push({
         name: product.category,
         count: 1,
-        image:
-          categoryImages[product.category] ?? "/images/categories/default.jpg",
+        image: getCategoryImage(product.category),
       });
     }
     return acc;
   }, []);
 
   return (
-    <section className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 px-6 pb-4 pt-6 md:px-12 lg:px-16">
+    <section
+      id="categories"
+      className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 px-6 pb-4 pt-6 md:px-12 lg:px-16 mt-5"
+    >
       <div className="mx-auto w-full max-w-7xl xl:max-w-300">
-        <div className="reveal mb-6 flex max-w-3xl flex-col items-center gap-2 text-center">
-          <h2 className="text-2xl font-semibold text-slate-900 md:text-3xl">
+        <div className="reveal mx-auto mb-6 flex max-w-3xl flex-col items-center gap-2 text-center">
+          <h2 className="text-2xl font-semibold text-slate-900 md:text-3xl text-center">
             Browse by category
           </h2>
-          <p className="text-sm leading-6 text-slate-700 md:text-base">
+          <p className="text-sm leading-6 text-slate-700 md:text-base text-center">
             Pick a category and see every product within that collection.
           </p>
         </div>
@@ -49,7 +43,7 @@ const CategoryGrid = () => {
             <Link
               key={category.name}
               to={`/products?category=${encodeURIComponent(category.name)}`}
-              className="reveal group flex min-h-[260px] w-full max-w-md flex-col items-center gap-5 rounded-2xl border border-slate-900/5 bg-white p-5 text-center text-slate-900 shadow-[0_18px_40px_rgba(11,18,41,0.08)] transition hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(11,18,41,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300/70"
+              className="reveal group flex min-h-65 w-full max-w-md flex-col items-center gap-5 rounded-2xl border border-slate-900/5 bg-white p-5 text-center text-slate-900 shadow-[0_18px_40px_rgba(11,18,41,0.08)] transition hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(11,18,41,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300/70"
             >
               <div className="h-70 w-70 overflow-hidden rounded-xl bg-slate-900 mx-auto">
                 <img

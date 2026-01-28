@@ -8,69 +8,64 @@ export type ExploreArticle = {
 
 export const exploreArticles: ExploreArticle[] = [
   {
-    slug: "bakery-deli",
-    title: "Bakery & Deli",
+    slug: "bakery",
+    title: "Bakery",
     description:
       "We serve delicious, fresh-baked goods and deli sandwiches to our community for years. We believe in using only the freshest ingredients, and all of our bread and pastries are made daily.",
-    image: "/images/categories/bakery-fresh.jpg",
+    image: "/categoryimages/bread22.jpg",
     content: [
-      "We serve delicious, fresh-baked goods and deli sandwiches to our community for years. We believe in using only the freshest ingredients, and all of our bread and pastries are made daily.",
-      "Stop by for artisan loaves, buttery pastries, and deli classics that are perfect for lunch, dinner, or a quick treat.",
+      "We serve delicious, fresh-baked bread to our community for years. We believe in using only the freshest ingredients, and all of our bread and pastries are made daily.",
+      "Stop for a bite you will live the taste",
     ],
   },
   {
-    slug: "fruits-vegetables",
-    title: "Fruits & Vegetables",
+    slug: "Groceries",
+    title: "Groceries",
     description:
-      "Providing the freshest and highest quality vegetables and fruits to our customers. Our produce is sourced from local farmers and markets, and we make sure to inspect each item to ensure it meets standards.",
-    image: "/images/categories/produce.jpg",
+      "Fresh groceries and everyday essentials, from produce and pantry staples to snacks and household items—all available to shop conveniently on Bokku.",
+    image: "/categoryimages/grogro.jpg",
     content: [
-      "Providing the freshest and highest quality vegetables and fruits to our customers. Our produce is sourced from local farmers and markets, and we make sure to inspect each item to ensure it meets standards.",
-      "From leafy greens to seasonal fruits, we keep the shelves stocked with produce you can feel good about.",
+      "Shop fresh and essential groceries all in one place. From farm-fresh fruits and vegetables to pantry staples, snacks, beverages, and everyday household essentials, Bokku makes grocery shopping simple, reliable, and convenient. Everything you need for daily meals and home essentials—just a few clicks away.",
     ],
   },
   {
-    slug: "meat-poultry",
-    title: "Meat & Poultry",
+    slug: "Frozen Food",
+    title: "Frozen Food",
     description:
-      "Delicious as a roast with crisp crackling, irresistible as sticky finger-licking ribs dripping with mouth-watering flavour, or flash fried and served in a fragrant stir-fry, our selection is endlessly versatile.",
-    image: "/images/categories/meat-poultry.jpg",
+      "Convenient frozen foods including vegetables, meats, seafood, and ready-to-cook meals—kept fresh and easy to prepare on Bokku..",
+    image: "/categoryimages/frozen.jpg",
     content: [
-      "Delicious as a roast with crisp crackling, irresistible as sticky finger-licking ribs dripping with mouth-watering flavour, or flash fried and served in a fragrant stir-fry, our selection is endlessly versatile.",
-      "Choose from tender cuts, marinated options, and ready-to-cook favorites for every occasion.",
+      "Discover a wide selection of frozen foods designed for freshness and convenience. From frozen vegetables, meats, seafood, and ready-to-cook meals to snacks and desserts, Bokku offers quality frozen options that help you save time without compromising taste or nutrition.",
     ],
   },
   {
-    slug: "recipes",
-    title: "Recipes",
+    slug: "Wine and Liquor",
+    title: "Wine and Liquor",
     description:
-      "A recipe is a formula of ingredients and a list of instructions for creating prepared foods. It is used to control quality, quantity, and food costs in a foodservice operation.",
-    image: "/images/categories/recipes.jpg",
+      "A curated range of wines, spirits, and liquors—perfect for celebrations, gatherings, or relaxed moments at home.",
+    image: "/categoryimages/wine.jpg",
     content: [
-      "A recipe is a formula of ingredients and a list of instructions for creating prepared foods. It is used to control quality, quantity, and food costs in a foodservice operation.",
-      "Explore step-by-step guides, seasonal inspiration, and quick meals made with BOKKU staples.",
+      "Explore a curated selection of wines, spirits, and liquors for every occasion. From fine wines and classic spirits to popular liquors and mixers, Bokku offers quality options whether you’re celebrating, entertaining, or simply unwinding at home.",
     ],
   },
   {
-    slug: "wine-liquor",
-    title: "Wine & Liquor",
+    slug: "Beauty",
+    title: "Beauty",
     description:
-      "At BOKKU, we have made sure to stock the widest range of your favourite drinks, all at supermarket prices. From truly exclusive whiskies to the world's top wines, it has never been more accessible.",
-    image: "/images/categories/beverages.jpg",
+      "Skincare, haircare, cosmetics, and everyday beauty essentials—quality products to support your daily beauty routine.",
+    image: "/categoryimages/beauty2.jpg",
     content: [
-      "At BOKKU, we have made sure to stock the widest range of your favourite drinks, all at supermarket prices. From truly exclusive whiskies to the world's top wines, it has never been more accessible.",
-      "Celebrate every moment with curated bottles, mixers, and non-alcoholic options for every palate.",
+      "Discover a carefully selected range of beauty and personal care products designed to help you look and feel your best. From skincare, haircare, and cosmetics to everyday grooming essentials, Bokku offers quality beauty products for all skin types and routines—simple, effective, and reliable.",
     ],
   },
   {
-    slug: "baby",
-    title: "Baby",
+    slug: "home",
+    title: "Home",
     description:
-      "Welcome to our Baby Hub. From pregnancy to your baby's first steps, we have all the baby tips you need to know for your child's development. We will be your guide as expecting parents through every stage.",
-    image: "/images/categories/baby.jpg",
+      "Everyday cooking tools, cookware, and family household essentials—designed to support daily meals and home living.",
+    image: "/categoryimages/home.jpg",
     content: [
-      "Welcome to our Baby Hub. From pregnancy to your baby's first steps, we have all the baby tips you need to know for your child's development. We will be your guide as expecting parents through every stage.",
-      "Shop trusted baby essentials, gentle care items, and parent-approved nutrition in one place.",
+      "Find everything your home needs for everyday cooking and family care. From cooking utensils, cookware, and kitchen tools to essential household items, Bokku brings together practical products that make meal preparation easier and family life more comfortable.",
     ],
   },
 ];

@@ -52,14 +52,12 @@ const Footer = () => {
           <p>
             Head Office:
             <br />
-            The Palms Shopping Mall,
-            <br />
-            1, Bisway Street, Oniru, Victoria Island, Lagos, Nigeria.
+            7, Acme Road, Ogba, Ikeja, Lagos,Nigeria.
           </p>
           <p>
             Telephone:
             <br />
-            +234 1330 1700.
+            +234 809 432 1111
           </p>
         </div>
       </div>
@@ -97,11 +95,21 @@ const Footer = () => {
             >
               <label>
                 Name
-                <input type="text" name="name" placeholder="Your full name" required />
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your full name"
+                  required
+                />
               </label>
               <label>
                 Email
-                <input type="email" name="email" placeholder="you@email.com" required />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="you@email.com"
+                  required
+                />
               </label>
               <button type="submit" className="footer-subscribe-submit">
                 Subscribe
