@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -11,8 +11,8 @@
   --color-panel-bg: var(--panel-bg);
   --color-nav-bg: var(--nav-bg);
   
-  --font-sans: "Plus Jakarta Sans", "Outfit", sans-serif;
-  --font-display: "Outfit", "Plus Jakarta Sans", sans-serif;
+  --font-sans: "Noto Sans", sans-serif;
+  --font-display: "Noto Sans", sans-serif;
 }
 
 :root {
@@ -23,7 +23,15 @@
   --accent-light: #fef08a; /* Yellow 200 */
   
   /* Backgrounds */
-  --page-bg: #ffffff;     /* Pure White */
+  --page-bg: linear-gradient(
+    135deg,
+    rgba(0, 0, 255, 0.08) 0%,
+    rgba(0, 0, 255, 0.08) 40%,
+    rgba(255, 255, 255, 0.96) 40%,
+    rgba(255, 255, 255, 0.96) 80%,
+    rgba(234, 179, 8, 0.12) 80%,
+    rgba(234, 179, 8, 0.12) 100%
+  );
   --panel-bg: #f8fafc;    /* Slate 50 */
   --nav-bg: rgba(255, 255, 255, 0.95); /* Glassy White */
   
@@ -56,7 +64,7 @@
 
 body {
   margin: 0;
-  font-family: "Plus Jakarta Sans", "Outfit", sans-serif;
+  font-family: var(--font-sans);
   background: var(--page-bg);
   color: var(--text-main);
   line-height: 1.6;

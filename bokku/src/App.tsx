@@ -20,7 +20,7 @@ const ScrollToTop = () => {
   const { pathname, search, hash } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo({ top: 0, behavior: "auto" });
   }, [pathname, search, hash]);
 
   return null;

@@ -14,7 +14,7 @@ type CartContextType = {
   openCart: () => void;
   closeCart: () => void;
   cartItems: CartItem[];
-  addToCart: (item: Omit<CartItem, 'quantity'>) => void;
+  addToCart: (item: Omit<CartItem, 'quantity'>, quantity?: number) => void;
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, delta: number) => void;
   cartTotal: string;
@@ -29,7 +29,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       if (typeof window !== 'undefined') {
         const saved = localStorage.getItem('bokku_cart');
         if (saved) {
-          return JSON.parse(saved);
+          const parsed = JSON.parse(saved) as Partial<CartItem>[];
+          return parsed
+            .filter((item) => item && typeof item.id === 'string' && typeof item.name === 'string')
+            .map((item) => ({
+              id: item.id!,
+              name: item.name!,
+              price: typeof item.price === 'string' ? item.price : '',
+              image: typeof item.image === 'string' ? item.image : '',
+              category: typeof item.category === 'string' ? item.category : '',
+              quantity:
+                typeof item.quantity === 'number' && Number.isFinite(item.quantity) && item.quantity > 0
+                  ? Math.floor(item.quantity)
+                  : 1,
+            }));
         }
       }
     } catch (e) {
@@ -47,15 +60,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }, [cartItems]);
 
   // Open cart automatically when item is added
-  const addToCart = (product: Omit<CartItem, 'quantity'>) => {
+  const addToCart = (product: Omit<CartItem, 'quantity'>, quantity = 1) => {
+    const safeQuantity = Number.isFinite(quantity) && quantity > 0 ? Math.floor(quantity) : 1;
     setCartItems((prev) => {
       const existing = prev.find((item) => item.id === product.id);
       if (existing) {
         return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === product.id ? { ...item, quantity: item.quantity + safeQuantity } : item
         );
       }
-      return [...prev, { ...product, quantity: 1 }];
+      return [...prev, { ...product, quantity: safeQuantity }];
     });
     setIsOpen(true);
   };
@@ -66,20 +80,19 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const updateQuantity = (id: string, delta: number) => {
     setCartItems((prev) =>
-      prev
-        .map((item) => {
-          if (item.id === id) {
-             const newQuantity = item.quantity + delta;
-             return newQuantity > 0 ? { ...item, quantity: newQuantity } : item;
-          }
-          return item;
-        })
+      prev.flatMap((item) => {
+        if (item.id !== id) return [item];
+        const newQuantity = item.quantity + delta;
+        if (newQuantity <= 0) return [];
+        return [{ ...item, quantity: newQuantity }];
+      })
     );
   };
 
   const cartTotal = cartItems.reduce((acc, item) => {
      // Assuming price is like "₦5,000", remove non-numeric chars
-     const priceNum = parseFloat(item.price.replace(/[^0-9.]/g, '')) || 0;
+     const priceText = typeof item.price === 'string' ? item.price : '';
+     const priceNum = parseFloat(priceText.replace(/[^0-9.]/g, '')) || 0;
      return (acc + priceNum * item.quantity); // Keep as number context for now, format later
   }, 0).toLocaleString('en-NG', { style: 'currency', currency: 'NGN' });
 

@@ -31,7 +31,7 @@ const Navbar = () => {
     ${
       isActive
         ? "text-primary bg-primary/10 font-semibold"
-        : "text-slate-600 hover:text-primary hover:bg-slate-50"
+        : "text-slate-600 hover:text-[#0000ff] hover:bg-blue-50"
     }`;
 
   const mobileNavLinkClass = ({ isActive }: { isActive: boolean }) =>
@@ -39,20 +39,24 @@ const Navbar = () => {
     ${
       isActive
         ? "bg-primary text-white shadow-lg shadow-primary/25"
-        : "text-slate-600 hover:bg-slate-50"
+        : "text-slate-600 hover:text-[#0000ff] hover:bg-blue-50"
     }`;
 
   return (
-    <nav className="sticky top-0 z-40 w-full border-b border-blue-900/10 bg-white/95 backdrop-blur-xl shadow-sm transition-all duration-300">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
-        
+    <nav className="sticky top-0 z-50 w-full border-b border-blue-900/10 bg-white/95 backdrop-blur-xl shadow-sm transition-all duration-300">
+      <div className="mx-auto grid h-20 max-w-7xl grid-cols-[auto,1fr,auto] items-center gap-3 px-4 md:flex md:justify-between md:px-6 lg:px-8">
         {/* Brand */}
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-4 justify-self-start md:gap-8">
           <NavLink
             to="/"
-            className="text-2xl font-bold tracking-tight text-slate-900 transition hover:opacity-80"
+            className="py-1 transition hover:opacity-90"
+            aria-label="BOKKU! Mart"
           >
-            Bokku<span className="text-primary">.</span>
+            <img
+              src="/categoryimages/bo.jpg"
+              alt="BOKKU! Mart"
+              className="h-10 w-auto max-h-12 object-cover md:h-9"
+            />
           </NavLink>
 
           {/* Desktop Nav */}
@@ -62,15 +66,15 @@ const Navbar = () => {
             <NavLink to="/career" className={navLinkClass}>Career</NavLink>
             
             <div className="group relative">
-              <NavLink to="/work-with-us" className="relative px-4 py-2 text-sm font-bold text-blue-700 transition-colors duration-200 rounded-full hover:bg-yellow-50">
+              <NavLink to="/work-with-us" className="relative px-4 py-2 text-sm font-bold text-blue-700 transition-colors duration-200 rounded-full hover:bg-blue-50 hover:text-[#0000ff]">
                 With Us <i className="fa-solid fa-chevron-down ml-1 text-xs opacity-50 group-hover:rotate-180 transition-transform" />
               </NavLink>
               
               <div className="absolute top-full left-0 mt-2 w-48 origin-top-left scale-95 opacity-0 invisible flex-col gap-1 rounded-2xl border border-slate-100 bg-white p-2 shadow-xl ring-1 ring-slate-900/5 transition-all duration-200 group-hover:scale-100 group-hover:opacity-100 group-hover:visible">
-                <NavLink to="/work-with-us/supplier" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors">
+                <NavLink to="/work-with-us/supplier" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-[#0000ff] transition-colors">
                   Supplier
                 </NavLink>
-                <NavLink to="/work-with-us/landlord-agencies" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors">
+                <NavLink to="/work-with-us/landlord-agencies" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-[#0000ff] transition-colors">
                   Landlords
                 </NavLink>
               </div>
@@ -81,8 +85,20 @@ const Navbar = () => {
           </div>
         </div>
 
+        {/* Mobile Search - Center */}
+        <div className="relative w-full max-w-[420px] justify-self-center md:hidden">
+          <i className="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            type="text"
+            placeholder="Search..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="w-full rounded-full border border-slate-200 bg-white/80 py-2.5 pl-10 pr-4 text-sm font-medium text-slate-900 backdrop-blur focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/10"
+          />
+        </div>
+
         {/* Actions */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center justify-end gap-4 justify-self-end">
           {/* Search Bar - Desktop */}
           <div className="relative hidden md:block group">
             <div className={`flex items-center gap-3 rounded-full border border-slate-200 bg-slate-50/50 px-4 py-2 transition-all duration-300 focus-within:border-primary focus-within:bg-white focus-within:ring-4 focus-within:ring-primary/10 ${query ? 'w-72' : 'w-64 hover:w-72'}`}>
@@ -113,7 +129,7 @@ const Navbar = () => {
                       className="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-slate-50"
                     >
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                        <i className={`fa-solid ${result.type === 'product' ? 'fa-box' : 'fa-file-lines'}`} />
+                        <i className={`fa-solid ${result.type.toLowerCase() === 'product' ? 'fa-box' : 'fa-file-lines'}`} />
                       </div>
                       <div>
                         <div className="text-sm font-semibold text-slate-900">{result.label}</div>
@@ -160,25 +176,31 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu Overlay */}
-      <div
-        className={`fixed inset-0 top-[80px] z-30 bg-white/95 backdrop-blur-xl transition-all duration-300 md:hidden
-        ${isMenuOpen ? "visible opacity-100" : "invisible opacity-0"}`}
-      >
-        <div className="flex h-full flex-col p-6 overflow-y-auto">
-          {/* Mobile Search */}
-          <div className="relative mb-6">
-            <i className="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Search anything..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="w-full rounded-2xl border border-slate-200 bg-slate-50 py-3.5 pl-11 pr-4 text-base font-medium text-slate-900 focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/10"
-            />
-            {/* Mobile Search Results could go here if needed */}
-          </div>
+      <div className={`fixed inset-0 z-[70] md:hidden ${isMenuOpen ? "visible" : "invisible"}`}>
+        <button
+          aria-label="Close menu"
+          onClick={() => setIsMenuOpen(false)}
+          className={`absolute inset-0 bg-white/40 backdrop-blur-md transition-opacity duration-300 ${
+            isMenuOpen ? "opacity-100" : "opacity-0"
+          }`}
+        />
+        <div
+          className={`absolute right-0 top-0 h-full w-[85vw] max-w-sm bg-white/80 backdrop-blur-2xl shadow-2xl transition-transform duration-300 ${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex h-full flex-col overflow-y-auto p-6">
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-sm font-semibold text-slate-500">Menu</span>
+              <button
+                onClick={() => setIsMenuOpen(false)}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900"
+              >
+                <i className="fa-solid fa-xmark" />
+              </button>
+            </div>
 
-          <div className="flex flex-col space-y-2">
+            <div className="flex flex-col space-y-2">
             <NavLink to="/" className={mobileNavLinkClass} onClick={() => setIsMenuOpen(false)}>
               <i className="fa-solid fa-house w-6 opacity-70" /> Home
             </NavLink>
@@ -202,6 +224,7 @@ const Navbar = () => {
              <NavLink to="/about" className={mobileNavLinkClass} onClick={() => setIsMenuOpen(false)}>
               <i className="fa-solid fa-circle-info w-6 opacity-70" /> About
             </NavLink>
+            </div>
           </div>
         </div>
       </div>

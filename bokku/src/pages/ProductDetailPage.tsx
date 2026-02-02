@@ -43,7 +43,7 @@ const ProductDetailPage = () => {
         price: product.price,
         image: product.image || getCategoryImage(product.category),
         category: product.category,
-      });
+      }, quantity);
       // Optionally reset quantity or show toast
     }
   };
