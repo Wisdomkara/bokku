@@ -11,7 +11,7 @@ const HomePage = () => {
   useGsapReveal(pageRef);
 
   return (
-    <div ref={pageRef} className="-mt-12">
+    <div ref={pageRef} className="pb-12">
       <HomeHero />
       <CategoryGrid />
       <TopSellingProducts />

@@ -1,117 +1,119 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
 
-  useEffect(() => {
-    if (!isSubscribeOpen) return;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsSubscribeOpen(false);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isSubscribeOpen]);
-
   return (
-    <footer className="site-footer">
-      <div className="site-footer__grid">
-        <div className="footer-column">
-          <h3>QUICK LINKS</h3>
-          <a href="/">Home</a>
-          <a href="/products">Products</a>
+    <footer className="bg-blue-950 text-white border-t-4 border-yellow-400">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 py-16 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+        {/* Column 1 */}
+        <div className="flex flex-col gap-6">
+          <h3 className="text-lg font-bold text-yellow-400 font-display">QUICK LINKS</h3>
+          <div className="flex flex-col gap-3 text-sm text-slate-300">
+            <Link to="/" className="hover:text-yellow-400 transition-colors">Home</Link>
+            <Link to="/products" className="hover:text-yellow-400 transition-colors">Products</Link>
+          </div>
           <button
             type="button"
-            className="footer-subscribe-trigger"
+            className="mt-2 w-fit rounded-full bg-yellow-400 px-6 py-2.5 text-sm font-bold text-blue-950 transition hover:bg-white hover:text-blue-900"
             onClick={() => setIsSubscribeOpen(true)}
           >
             Subscribe for alerts
           </button>
         </div>
 
-        <div className="footer-column">
-          <h3>EXPLORE BOKKU</h3>
-          <a href="/explore/bakery-deli">Bakery &amp; Deli</a>
-          <a href="/explore/fruits-vegetables">Fruits &amp; Vegetables</a>
-          <a href="/explore/meat-poultry">Meat &amp; Poultry</a>
-          <a href="/explore/recipes">Recipes</a>
-          <a href="/explore/wine-liquor">Wine &amp; Liquor</a>
-          <a href="/explore/baby">Baby</a>
+        {/* Column 2 */}
+        <div className="flex flex-col gap-6">
+          <h3 className="text-lg font-bold text-yellow-400 font-display">EXPLORE BOKKU</h3>
+          <div className="flex flex-col gap-3 text-sm text-slate-300">
+            <Link to="/explore/bakery-deli" className="hover:text-yellow-400 transition-colors">Bakery & Deli</Link>
+            <Link to="/explore/fruits-vegetables" className="hover:text-yellow-400 transition-colors">Fruits & Vegetables</Link>
+            <Link to="/explore/meat-poultry" className="hover:text-yellow-400 transition-colors">Meat & Poultry</Link>
+            <Link to="/explore/recipes" className="hover:text-yellow-400 transition-colors">Recipes</Link>
+            <Link to="/explore/wine-liquor" className="hover:text-yellow-400 transition-colors">Wine & Liquor</Link>
+            <Link to="/explore/baby" className="hover:text-yellow-400 transition-colors">Baby</Link>
+          </div>
         </div>
 
-        <div className="footer-column">
-          <h3>TERMS &amp; CONDITIONS</h3>
-          <a href="/cookie-policy">Cookie Policy</a>
-          <a href="/data-privacy">Data Privacy Statement</a>
-          <a href="/website-usage">Website Usage Policy</a>
+        {/* Column 3 */}
+        <div className="flex flex-col gap-6">
+          <h3 className="text-lg font-bold text-yellow-400 font-display">TERMS & CONDITIONS</h3>
+          <div className="flex flex-col gap-3 text-sm text-slate-300">
+            <Link to="/cookie-policy" className="hover:text-yellow-400 transition-colors">Cookie Policy</Link>
+            <Link to="/data-privacy" className="hover:text-yellow-400 transition-colors">Data Privacy Statement</Link>
+            <Link to="/website-usage" className="hover:text-yellow-400 transition-colors">Website Usage Policy</Link>
+          </div>
         </div>
 
-        <div className="footer-column">
-          <h3>CONTACT US</h3>
-          <p>
-            Head Office:
-            <br />
-            7, Acme Road, Ogba, Ikeja, Lagos,Nigeria.
-          </p>
-          <p>
-            Telephone:
-            <br />
-            +234 809 432 1111
-          </p>
+        {/* Column 4 */}
+        <div className="flex flex-col gap-6">
+          <h3 className="text-lg font-bold text-yellow-400 font-display">CONTACT US</h3>
+          <div className="flex flex-col gap-4 text-sm text-slate-300">
+            <div>
+              <p className="font-semibold text-white">Head Office:</p>
+              <p>7, Acme Road, Ogba, Ikeja, Lagos, Nigeria.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-white">Telephone:</p>
+              <p>+234 809 432 1111</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="site-footer__bottom">
+
+      <div className="border-t border-white/10 bg-blue-900/50 py-8 text-center text-xs text-slate-400">
         © Retail Supermarkets Nigeria Limited 2025. All Rights Reserved.
       </div>
 
       {isSubscribeOpen && (
-        <div className="footer-subscribe-overlay" role="presentation">
-          <div
-            className="footer-subscribe-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="footer-subscribe-title"
-          >
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-blue-950/80 backdrop-blur-sm p-4">
+          <div className="relative w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl animate-scale-in">
             <button
               type="button"
-              className="footer-subscribe-close"
+              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200"
               onClick={() => setIsSubscribeOpen(false)}
-              aria-label="Close subscription form"
             >
-              X
+              <i className="fa-solid fa-xmark" />
             </button>
-            <h3 id="footer-subscribe-title">Subscribe for discount alerts</h3>
-            <p>
-              Be the first to receive product discount alerts available in all
-              stores.
+            
+            <span className="mb-2 inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-600">
+              Join the club
+            </span>
+            <h3 className="mb-2 text-2xl font-bold text-blue-950 font-display">Subscribe for discount alerts</h3>
+            <p className="mb-6 text-slate-600">
+              Be the first to receive product discount alerts available in all stores.
             </p>
+            
             <form
-              className="footer-subscribe-form"
+              className="flex flex-col gap-4"
               onSubmit={(event) => {
                 event.preventDefault();
                 setIsSubscribeOpen(false);
               }}
             >
-              <label>
-                Name
+              <div className="space-y-1">
+                <label className="text-sm font-semibold text-slate-900">Name</label>
                 <input
                   type="text"
-                  name="name"
                   placeholder="Your full name"
                   required
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-600/10"
                 />
-              </label>
-              <label>
-                Email
+              </div>
+              <div className="space-y-1">
+                <label className="text-sm font-semibold text-slate-900">Email</label>
                 <input
                   type="email"
-                  name="email"
                   placeholder="you@email.com"
                   required
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-600/10"
                 />
-              </label>
-              <button type="submit" className="footer-subscribe-submit">
+              </div>
+              <button 
+                type="submit" 
+                className="mt-2 rounded-xl bg-blue-600 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 hover:-translate-y-0.5"
+              >
                 Subscribe
               </button>
             </form>

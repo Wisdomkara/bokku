@@ -6,31 +6,59 @@ const TopSellingProducts = () => {
   const topSelling = products.filter((product) => product.isTopSelling);
 
   return (
-    <section className="top-selling">
-      <div className="top-selling__header reveal">
-        <h2>Top selling products</h2>
-        <p>These are the items customers love most right now.</p>
-        <Link className="top-selling__link" to="/products?topSelling=true">
-          View all top selling
-        </Link>
-      </div>
-      <div className="top-selling__grid">
-        {topSelling.map((product) => (
+    <section className="py-24 px-4 md:px-8 bg-white">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-12 flex flex-col md:flex-row items-end justify-between gap-4">
+          <div>
+            <h2 className="text-3xl font-bold text-blue-950 md:text-4xl font-display">
+              Best Sellers
+            </h2>
+            <p className="mt-2 text-slate-600">
+              Customer favorites you don't want to miss.
+            </p>
+          </div>
           <Link
-            key={product.slug}
-            className="top-selling__card reveal"
-            to={`/products/${product.slug}`}
+            to="/products?topSelling=true"
+            className="group flex items-center gap-2 font-semibold text-primary transition hover:text-primary-dark"
           >
-            <div className="top-selling__image">
-              <img src={getCategoryImage(product.category)} alt={product.name} />
-            </div>
-            <div className="top-selling__body">
-              <h3>{product.name}</h3>
-              <p>{product.category}</p>
-              <span>{product.price}</span>
-            </div>
+            View all <i className="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1" />
           </Link>
-        ))}
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {topSelling.map((product) => (
+            <Link
+              key={product.slug}
+              to={`/products/${product.slug}`}
+              className="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl"
+            >
+              <div className="aspect-square w-full overflow-hidden bg-blue-50">
+                <img
+                  src={getCategoryImage(product.category)}
+                  alt={product.name}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              
+              <div className="flex flex-1 flex-col p-5">
+                <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+                  {product.category}
+                </p>
+                <h3 className="mt-1 text-lg font-bold text-blue-950 line-clamp-1">
+                  {product.name}
+                </h3>
+                <div className="mt-auto pt-4 flex items-center justify-between">
+                  <span className="text-xl font-bold text-blue-950">
+                    {product.price}
+                  </span>
+                  <button className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-blue-950 transition hover:bg-primary hover:text-white">
+                    <i className="fa-solid fa-plus" />
+                  </button>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );

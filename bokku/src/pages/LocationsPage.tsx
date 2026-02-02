@@ -29,6 +29,7 @@ type GoogleMapsNamespace = {
       position: GeoPosition;
       map: GoogleMap;
       title: string;
+      icon?: string;
     }) => GoogleMarker;
     LatLngBounds: new () => GoogleLatLngBounds;
   };
@@ -201,69 +202,50 @@ const LocationsPage = () => {
 
   return (
     <PageLayout
-      title="Locations"
-      description="Tell us where you are and we will show the closest Bokku branches near you."
-      className="locations-shell"
+      title="Store Locations"
+      description="Find your nearest Bokku store for fresh groceries and daily essentials."
     >
-      <section className="locations-page">
-        <div className="locations-hero">
-          <div className="locations-hero__content">
-            <h2>Find a Bokku store near you</h2>
-            <p>
-              Enter your area, city, or landmark to discover nearby branches,
-              opening hours, and contact details.
-            </p>
-            <div className="locations-search">
-              <input
-                type="text"
-                placeholder="Type your location (e.g. Lekki, Jabi, Surulere)"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                aria-label="Search locations"
-              />
-              <div className="locations-search__actions">
-                <button
-                  type="button"
-                  onClick={requestLocation}
-                  disabled={geoStatus === "loading"}
-                >
-                  {geoStatus === "loading" ? "Locating..." : "Use my location"}
-                </button>
-                {geoStatus === "denied" && (
-                  <span>Enable GPS to see nearest branches.</span>
-                )}
+      <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-start">
+        {/* Left Side: Search & List */}
+        <div className="flex w-full flex-col gap-6 lg:w-1/3 text-black">
+          {/* Search Box */}
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-slate-900">Find a store</h2>
+            <div className="mt-4 flex flex-col gap-3">
+              <div className="relative">
+                <i className="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="Enter city or area..."
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  className="w-full rounded-xl border border-slate-200 py-3 pl-11 pr-4 text-sm text-slate-900 focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/10"
+                />
               </div>
-              <span className="locations-search__count">
-                {filteredBranches.length} branch
-                {filteredBranches.length === 1 ? "" : "es"} found
-              </span>
+              <button
+                onClick={requestLocation}
+                disabled={geoStatus === "loading"}
+                className="flex items-center justify-center gap-2 rounded-xl bg-slate-100 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-200 active:scale-95 disabled:opacity-50"
+              >
+                <i className="fa-solid fa-location-crosshairs" />
+                {geoStatus === "loading" ? "Locating..." : "Use my location"}
+              </button>
+              <div className="flex items-center justify-between text-xs text-slate-500">
+                <span>{filteredBranches.length} locations found</span>
+                {geoStatus === "denied" && <span className="text-red-500">Enable GPS</span>}
+              </div>
             </div>
           </div>
-          <div className="locations-hero__panel">
-            <h3>Open daily</h3>
-            <p>Most branches operate from 8:00 AM - 10:00 PM.</p>
-            <div className="locations-hero__tag">Nationwide coverage</div>
-          </div>
-        </div>
 
-        <div className="locations-layout">
-          <div className="locations-map">
-            {apiKey ? (
-              <div ref={mapContainerRef} className="locations-map__canvas" />
-            ) : (
-              <div className="locations-map__placeholder">
-                <h3>Google Maps</h3>
-                <p>Add `VITE_GOOGLE_MAPS_API_KEY` to enable the live map.</p>
-              </div>
-            )}
-          </div>
-
-          <div className="locations-list-container">
-            <div className="locations-grid">
+          {/* Locations List */}
+          <div className="flex max-h-[600px] flex-col gap-4 overflow-y-auto pr-2">
             {filteredBranches.map((branch) => (
-              <article key={branch.id} className="locations-card">
-                <div className="locations-card__image">
-                  {!missingImages[branch.id] && (
+              <div
+                key={branch.id}
+                className="group flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-primary/30 hover:shadow-md"
+              >
+                <div className="relative h-40 w-full overflow-hidden rounded-xl bg-slate-100">
+                  {!missingImages[branch.id] ? (
                     <img
                       src={
                         imageSources[branch.id] ??
@@ -271,7 +253,8 @@ const LocationsPage = () => {
                         branch.imageUrl ??
                         `/assets/locations/${branch.slug}.jpg`
                       }
-                      alt={`${branch.name} storefront`}
+                      alt={branch.name}
+                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                       onError={(event) => {
                         const target = event.currentTarget;
                         const currentSource = target.getAttribute("src") ?? "";
@@ -288,46 +271,61 @@ const LocationsPage = () => {
                         }
                       }}
                     />
-                  )}
-                  {missingImages[branch.id] && (
-                    <div className="locations-card__image-placeholder">
-                      Add branch image
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-slate-400">
+                      <i className="fa-regular fa-image text-3xl" />
                     </div>
                   )}
-                </div>
-                <div className="locations-card__body">
-                  <div className="locations-card__title">{branch.name}</div>
-                  <div className="locations-card__meta">
-                    {branch.city}, {branch.state}
-                  </div>
-                  <p>{branch.address}</p>
-                  <div className="locations-card__info">
-                    <span>
-                      {branch.hours?.mon ? `Mon - Fri ${branch.hours.mon}` : "Hours"}
-                    </span>
-                    <span>{branch.phone || "Phone unavailable"}</span>
-                  </div>
                   {userPosition && (
-                    <div className="locations-card__distance">
-                      {calculateDistanceKm(userPosition, {
-                        lat: branch.lat,
-                        lng: branch.lng,
-                      }).toFixed(1)}
-                      km away
+                    <div className="absolute bottom-2 right-2 rounded-full bg-blue-950/80 px-2 py-1 text-xs font-semibold text-white backdrop-blur">
+                      {calculateDistanceKm(userPosition, { lat: branch.lat, lng: branch.lng }).toFixed(1)} km
                     </div>
                   )}
                 </div>
-              </article>
+
+                <div>
+                  <h3 className="text-base font-bold text-slate-900">{branch.name}</h3>
+                  <p className="text-sm text-slate-500">{branch.address}</p>
+                  <p className="text-sm font-medium text-slate-900 mt-1">
+                    {branch.city}, {branch.state}
+                  </p>
+                  
+                  <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 text-xs">
+                    <span className="flex items-center gap-1.5 font-medium text-green-600 bg-green-50 px-2 py-1 rounded-md">
+                      <i className="fa-regular fa-clock" /> Open
+                    </span>
+                     <span className="flex items-center gap-1.5 text-slate-500">
+                      <i className="fa-solid fa-phone" /> {branch.phone || "N/A"}
+                    </span>
+                  </div>
+                </div>
+              </div>
             ))}
-            {!filteredBranches.length && (
-              <div className="locations-empty">
-                No branches found. Try another area or city.
+            {filteredBranches.length === 0 && (
+              <div className="rounded-2xl border border-dashed border-slate-300 p-8 text-center text-slate-500">
+                No stores found in this area.
               </div>
             )}
-            </div>
           </div>
         </div>
-      </section>
+
+        {/* Right Side: Map */}
+        <div className="sticky top-24 h-[600px] w-full flex-1 overflow-hidden rounded-3xl bg-slate-100 shadow-inner lg:h-[calc(100vh-140px)]">
+          {apiKey ? (
+            <div ref={mapContainerRef} className="h-full w-full" />
+          ) : (
+            <div className="flex h-full w-full flex-col items-center justify-center gap-4 bg-slate-200 text-slate-500">
+              <div className="rounded-full bg-white p-4 shadow-lg">
+                <i className="fa-solid fa-map-location-dot text-4xl text-slate-400" />
+              </div>
+              <div className="text-center">
+                <h3 className="font-semibold text-slate-700">Map Unavailable</h3>
+                <p className="text-sm">Add VITE_GOOGLE_MAPS_API_KEY to see live map.</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </PageLayout>
   );
 };

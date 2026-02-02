@@ -24,46 +24,44 @@ const CategoryGrid = () => {
   }, []);
 
   return (
-    <section
-      id="categories"
-      className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 px-6 pb-4 pt-6 md:px-12 lg:px-16 mt-5"
-    >
-      <div className="mx-auto w-full max-w-7xl xl:max-w-300">
-        <div className="reveal mx-auto mb-6 flex max-w-3xl flex-col items-center gap-2 text-center">
-          <h2 className="text-2xl font-semibold text-slate-900 md:text-3xl text-center">
-            Browse by category
+    <section id="categories" className="py-24 px-4 md:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-blue-950 md:text-4xl font-display">
+            Browse by Category
           </h2>
-          <p className="text-sm leading-6 text-slate-700 md:text-base text-center">
-            Pick a category and see every product within that collection.
+          <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+            Explore our curated collection of premium essentials.
           </p>
         </div>
 
-        <div className="grid place-items-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((category) => (
             <Link
               key={category.name}
               to={`/products?category=${encodeURIComponent(category.name)}`}
-              className="reveal group flex min-h-65 w-full max-w-md flex-col items-center gap-5 rounded-2xl border border-slate-900/5 bg-white p-5 text-center text-slate-900 shadow-[0_18px_40px_rgba(11,18,41,0.08)] transition hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(11,18,41,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300/70"
+              className="group relative flex h-80 flex-col overflow-hidden rounded-3xl bg-blue-50 transition-all hover:shadow-xl"
             >
-              <div className="h-70 w-70 overflow-hidden rounded-xl bg-slate-900 mx-auto">
+              <div className="absolute inset-0">
                 <img
                   src={category.image}
                   alt={category.name}
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-300 group-hover:from-black/90" />
               </div>
 
-              <span className="text-base font-semibold text-slate-900">
-                {category.name}
-              </span>
-
-              <span className="text-sm font-medium text-slate-600">
-                {category.count} items
-              </span>
-
-              <span className="mt-auto inline-flex items-center rounded-full bg-yellow-300 px-3 py-1.5 text-xs font-semibold text-slate-900 transition group-hover:bg-yellow-200 mx-auto">
-                View products
-              </span>
+              <div className="relative mt-auto p-8 text-white translate-y-2 transition-transform duration-300 group-hover:translate-y-0">
+                <h3 className="text-2xl font-bold font-display">{category.name}</h3>
+                <div className="mt-2 flex items-center justify-between opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <span className="text-sm font-medium text-white/90">
+                    {category.count} Products
+                  </span>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-blue-950">
+                    <i className="fa-solid fa-arrow-right text-xs" />
+                  </div>
+                </div>
+              </div>
             </Link>
           ))}
         </div>

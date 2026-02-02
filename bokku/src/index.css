@@ -1,16 +1,53 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
+@theme {
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  
+  --color-page-bg: var(--page-bg);
+  --color-panel-bg: var(--panel-bg);
+  --color-nav-bg: var(--nav-bg);
+  
+  --font-sans: "Plus Jakarta Sans", "Outfit", sans-serif;
+  --font-display: "Outfit", "Plus Jakarta Sans", sans-serif;
+}
+
 :root {
-  --nav-bg: #0000ff;
-  --nav-text: #f8f9ff;
-  --nav-accent: #7cf6ff;
-  --page-bg: rgb(236, 236, 248);
-  --page-text: #cbd6f5;
-  --panel: #ffffff;
-  --shadow: 0 18px 40px rgba(11, 31, 74, 0.18);
-  --glass: rgba(255, 255, 255, 0.08);
+  /* Brand Palette - Modern Premium */
+  --primary: #0000ff;     /* Pure Blue */
+  --primary-dark: #0000cc; /* Darker Blue */
+  --accent: #eab308;      /* Yellow 500 (Gold) */
+  --accent-light: #fef08a; /* Yellow 200 */
+  
+  /* Backgrounds */
+  --page-bg: #ffffff;     /* Pure White */
+  --panel-bg: #f8fafc;    /* Slate 50 */
+  --nav-bg: rgba(255, 255, 255, 0.95); /* Glassy White */
+  
+  /* Text */
+  --text-main: #0f172a;   /* Slate 900 */
+  --text-muted: #64748b;  /* Slate 500 */
+  --text-inverse: #f8fafc; /* Slate 50 */
+  
+  /* UI Elements */
+  --border: rgba(148, 163, 184, 0.2);
+  --glass: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.15); /* Blue glow */
+
   --career-hero-image: url("/assets/sliderimage/bokku.jpg");
+  
+  /* Legacy mapping for compatibility */
+  --nav-text: var(--text-main);
+  --nav-accent: var(--primary);
+  --page-text: var(--text-main);
+  --panel: var(--panel-bg);
+  --shadow: var(--shadow-lg);
 }
 
 * {
@@ -19,53 +56,40 @@
 
 body {
   margin: 0;
-  font-family: "Poppins", "Segoe UI", sans-serif;
+  font-family: "Plus Jakarta Sans", "Outfit", sans-serif;
   background: var(--page-bg);
-  color: var(--page-text);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
   text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
 }
 
-@keyframes page-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Modern Animations */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes slide-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@keyframes slide-in-right {
-  from {
-    opacity: 0;
-    transform: translateX(28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  display: block;
 }
 
 .app-shell {
@@ -1830,7 +1854,7 @@ img {
 
 .top-selling__body p {
   margin: 0;
-  color: rgba(11, 18, 41, 0.6);
+  color: #000;
   font-size: 0.85rem;
 }
 
