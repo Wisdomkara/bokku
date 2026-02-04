@@ -1,4 +1,6 @@
+import { useState } from "react";
 import PageLayout from "./PageLayout";
+import { submitJobApplication } from "../lib/jobApplications";
 
 type JobOpening = {
   id: string;
@@ -64,6 +66,17 @@ const jobOpenings: JobOpening[] = [
 ];
 
 const CareerPage = () => {
+  const [isApplyOpen, setIsApplyOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<JobOpening | null>(null);
+  const [applyName, setApplyName] = useState("");
+  const [applyEmail, setApplyEmail] = useState("");
+  const [applyPhone, setApplyPhone] = useState("");
+  const [applyResumeUrl, setApplyResumeUrl] = useState("");
+  const [applyMessage, setApplyMessage] = useState("");
+  const [applyError, setApplyError] = useState<string | null>(null);
+  const [applySuccess, setApplySuccess] = useState<string | null>(null);
+  const [isApplySubmitting, setIsApplySubmitting] = useState(false);
+
   return (
     <PageLayout
       title="Careers at Bokku"
@@ -131,6 +144,12 @@ const CareerPage = () => {
                 <button
                   type="button"
                   className="rounded-full bg-slate-900 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-primary active:scale-95"
+                  onClick={() => {
+                    setSelectedRole(job);
+                    setIsApplyOpen(true);
+                    setApplyError(null);
+                    setApplySuccess(null);
+                  }}
                 >
                   Apply Now
                 </button>
@@ -139,6 +158,145 @@ const CareerPage = () => {
           ))}
         </div>
       </div>
+
+      {isApplyOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 p-4 backdrop-blur-sm">
+          <div className="relative w-full max-w-xl rounded-3xl bg-white p-8 shadow-2xl animate-scale-in">
+            <button
+              type="button"
+              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200"
+              onClick={() => setIsApplyOpen(false)}
+            >
+              <i className="fa-solid fa-xmark" />
+            </button>
+
+            <span className="mb-2 inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-600">
+              Application
+            </span>
+            <h3 className="mb-2 text-2xl font-bold text-blue-950 font-display">
+              Apply for {selectedRole?.title ?? "this role"}
+            </h3>
+            <p className="mb-6 text-slate-600">
+              Share your details and we will reach out with next steps.
+            </p>
+
+            <form
+              className="grid gap-4 md:grid-cols-2"
+              onSubmit={async (event) => {
+                event.preventDefault();
+                setApplyError(null);
+                setApplySuccess(null);
+                setIsApplySubmitting(true);
+                try {
+                  await submitJobApplication({
+                    fullName: applyName,
+                    email: applyEmail,
+                    phone: applyPhone,
+                    resumeUrl: applyResumeUrl,
+                    message: applyMessage,
+                    roleId: selectedRole?.id,
+                    roleTitle: selectedRole?.title,
+                  });
+                  setApplyName("");
+                  setApplyEmail("");
+                  setApplyPhone("");
+                  setApplyResumeUrl("");
+                  setApplyMessage("");
+                  setApplySuccess("Application received. We will contact you within 3-5 business days.");
+                  window.setTimeout(() => {
+                    setIsApplyOpen(false);
+                  }, 2000);
+                } catch (error) {
+                  setApplyError(
+                    error instanceof Error
+                      ? error.message
+                      : "Unable to submit application."
+                  );
+                } finally {
+                  setIsApplySubmitting(false);
+                }
+              }}
+            >
+              <div className="space-y-1 md:col-span-1">
+                <label className="text-sm font-semibold text-slate-900">Full name</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Your full name"
+                  value={applyName}
+                  onChange={(event) => setApplyName(event.target.value)}
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-600/10"
+                />
+              </div>
+              <div className="space-y-1 md:col-span-1">
+                <label className="text-sm font-semibold text-slate-900">Email</label>
+                <input
+                  type="email"
+                  required
+                  placeholder="you@email.com"
+                  value={applyEmail}
+                  onChange={(event) => setApplyEmail(event.target.value)}
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-600/10"
+                />
+              </div>
+              <div className="space-y-1 md:col-span-1">
+                <label className="text-sm font-semibold text-slate-900">Phone</label>
+                <input
+                  type="tel"
+                  required
+                  placeholder="+234 812 000 0000"
+                  value={applyPhone}
+                  onChange={(event) => setApplyPhone(event.target.value)}
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-600/10"
+                />
+              </div>
+              <div className="space-y-1 md:col-span-1">
+                <label className="text-sm font-semibold text-slate-900">Resume link</label>
+                <input
+                  type="url"
+                  placeholder="https://drive.google.com/..."
+                  value={applyResumeUrl}
+                  onChange={(event) => setApplyResumeUrl(event.target.value)}
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-600/10"
+                />
+              </div>
+              <div className="space-y-1 md:col-span-2">
+                <label className="text-sm font-semibold text-slate-900">Message</label>
+                <textarea
+                  rows={4}
+                  placeholder="Tell us why you're a great fit."
+                  value={applyMessage}
+                  onChange={(event) => setApplyMessage(event.target.value)}
+                  className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-600/10"
+                />
+              </div>
+              {applyError && (
+                <div className="md:col-span-2">
+                  <p className="rounded-lg bg-red-50 px-3 py-2 text-xs font-semibold text-red-700">
+                    {applyError}
+                  </p>
+                </div>
+              )}
+              {applySuccess && (
+                <div className="md:col-span-2">
+                  <p className="rounded-lg bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-700">
+                    {applySuccess}
+                  </p>
+                </div>
+              )}
+              <div className="md:col-span-2">
+                <button
+                  type="submit"
+                  disabled={isApplySubmitting}
+                  className="w-full rounded-xl bg-blue-600 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  {isApplySubmitting ? "Submitting..." : "Submit application"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </PageLayout>
   );
 };

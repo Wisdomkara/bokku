@@ -1,9 +1,15 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { getCategoryImage } from "../../data/categoryImages";
 import { products } from "../../data/products";
+import { addDiscountSubscriber } from "../../lib/discountSubscribers";
 
 const TopSellingProducts = () => {
   const topSelling = products.filter((product) => product.isTopSelling);
+  const [discountName, setDiscountName] = useState("");
+  const [discountEmail, setDiscountEmail] = useState("");
+  const [discountError, setDiscountError] = useState<string | null>(null);
+  const [isDiscountSubmitting, setIsDiscountSubmitting] = useState(false);
 
   return (
     <section className="py-24 px-4 md:px-8 bg-white">
@@ -58,6 +64,71 @@ const TopSellingProducts = () => {
               </div>
             </Link>
           ))}
+        </div>
+
+        <div className="mt-12 rounded-3xl border border-blue-100 bg-blue-50 px-6 py-8 md:px-10">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h3 className="text-2xl font-bold text-blue-950">
+                Get discount alerts
+              </h3>
+              <p className="mt-2 text-slate-600">
+                Drop your name and email to receive best-seller discount updates.
+              </p>
+            </div>
+            <form
+              className="flex w-full flex-col gap-3 md:w-auto md:flex-row"
+              onSubmit={async (event) => {
+                event.preventDefault();
+                setDiscountError(null);
+                setIsDiscountSubmitting(true);
+                try {
+                  await addDiscountSubscriber({
+                    fullName: discountName,
+                    email: discountEmail,
+                    source: "best_sellers",
+                  });
+                  setDiscountName("");
+                  setDiscountEmail("");
+                } catch (error) {
+                  setDiscountError(
+                    error instanceof Error ? error.message : "Unable to subscribe."
+                  );
+                } finally {
+                  setIsDiscountSubmitting(false);
+                }
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Your name"
+                className="w-full rounded-xl border border-blue-200 bg-white px-4 py-3 text-sm focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-600/10 md:w-56"
+                required
+                value={discountName}
+                onChange={(event) => setDiscountName(event.target.value)}
+              />
+              <input
+                type="email"
+                placeholder="Your email"
+                className="w-full rounded-xl border border-blue-200 bg-white px-4 py-3 text-sm focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-600/10 md:w-64"
+                required
+                value={discountEmail}
+                onChange={(event) => setDiscountEmail(event.target.value)}
+              />
+              <button
+                type="submit"
+                disabled={isDiscountSubmitting}
+                className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                {isDiscountSubmitting ? "Submitting..." : "Subscribe"}
+              </button>
+              {discountError && (
+                <p className="rounded-lg bg-red-50 px-3 py-2 text-xs font-semibold text-red-700 md:ml-2">
+                  {discountError}
+                </p>
+              )}
+            </form>
+          </div>
         </div>
       </div>
     </section>

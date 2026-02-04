@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { addDiscountSubscriber } from "../lib/discountSubscribers";
 
 const Footer = () => {
   const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
+  const [subscribeName, setSubscribeName] = useState("");
+  const [subscribeEmail, setSubscribeEmail] = useState("");
+  const [subscribeError, setSubscribeError] = useState<string | null>(null);
+  const [isSubscribeSubmitting, setIsSubscribeSubmitting] = useState(false);
 
   return (
     <footer className="bg-blue-950 text-white border-t-4 border-yellow-400">
@@ -87,9 +92,26 @@ const Footer = () => {
             
             <form
               className="flex flex-col gap-4"
-              onSubmit={(event) => {
+              onSubmit={async (event) => {
                 event.preventDefault();
-                setIsSubscribeOpen(false);
+                setSubscribeError(null);
+                setIsSubscribeSubmitting(true);
+                try {
+                  await addDiscountSubscriber({
+                    fullName: subscribeName,
+                    email: subscribeEmail,
+                    source: "footer_modal",
+                  });
+                  setSubscribeName("");
+                  setSubscribeEmail("");
+                  setIsSubscribeOpen(false);
+                } catch (error) {
+                  setSubscribeError(
+                    error instanceof Error ? error.message : "Unable to subscribe."
+                  );
+                } finally {
+                  setIsSubscribeSubmitting(false);
+                }
               }}
             >
               <div className="space-y-1">
@@ -98,6 +120,8 @@ const Footer = () => {
                   type="text"
                   placeholder="Your full name"
                   required
+                  value={subscribeName}
+                  onChange={(event) => setSubscribeName(event.target.value)}
                   className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-600/10"
                 />
               </div>
@@ -107,14 +131,22 @@ const Footer = () => {
                   type="email"
                   placeholder="you@email.com"
                   required
+                  value={subscribeEmail}
+                  onChange={(event) => setSubscribeEmail(event.target.value)}
                   className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-600/10"
                 />
               </div>
+              {subscribeError && (
+                <p className="rounded-lg bg-red-50 px-3 py-2 text-xs font-semibold text-red-700">
+                  {subscribeError}
+                </p>
+              )}
               <button 
                 type="submit" 
-                className="mt-2 rounded-xl bg-blue-600 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 hover:-translate-y-0.5"
+                disabled={isSubscribeSubmitting}
+                className="mt-2 rounded-xl bg-blue-600 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70"
               >
-                Subscribe
+                {isSubscribeSubmitting ? "Submitting..." : "Subscribe"}
               </button>
             </form>
           </div>
