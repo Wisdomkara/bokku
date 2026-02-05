@@ -83,8 +83,67 @@ app.post('/api/submit-application', async (req, res) => {
   }
 });
 
+// Discount subscription endpoint
+app.post('/api/subscribe-discount', async (req, res) => {
+  try {
+    const { fullName, email, source } = req.body;
+
+    // Validate required fields
+    if (!fullName || !email) {
+      return res.status(400).json({
+        error: 'Missing required fields',
+        message: 'Full name and email are required'
+      });
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        error: 'Invalid email',
+        message: 'Please provide a valid email address'
+      });
+    }
+
+    // Insert into Supabase
+    const { data, error } = await supabase
+      .from('discount_sales')
+      .insert([
+        {
+          full_name: fullName,
+          email: email,
+          source: source || null,
+        }
+      ])
+      .select();
+
+    if (error) {
+      console.error('Supabase error:', error);
+      return res.status(500).json({
+        error: 'Database error',
+        message: 'Failed to subscribe. Please try again.'
+      });
+    }
+
+    // Success response
+    res.status(201).json({
+      success: true,
+      message: 'Subscription received successfully',
+      data: data[0]
+    });
+
+  } catch (error) {
+    console.error('Server error:', error);
+    res.status(500).json({
+      error: 'Server error',
+      message: 'An unexpected error occurred. Please try again.'
+    });
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
+  console.log(`Discount subscription endpoint: http://localhost:${PORT}/api/subscribe-discount`);
   console.log(`🚀 Backend API running on http://localhost:${PORT}`);
   console.log(`📝 Job application endpoint: http://localhost:${PORT}/api/submit-application`);
 });
