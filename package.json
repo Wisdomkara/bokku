@@ -1,5 +1,17 @@
 {
+  "scripts": {
+    "dev": "concurrently \"npm --prefix bokku run dev\" \"node backend/server.js\"",
+    "dev:api": "node backend/server.js",
+    "dev:web": "npm --prefix bokku run dev",
+    "build": "npm --prefix bokku run build"
+  },
   "dependencies": {
-    "@supabase/supabase-js": "^2.94.0"
+    "@supabase/supabase-js": "^2.94.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
