@@ -2,30 +2,15 @@
   "version": 2,
   "installCommand": "npm --prefix bokku install",
   "buildCommand": "npm --prefix bokku run build",
-  "builds": [
+  "outputDirectory": "bokku/dist",
+  "rewrites": [
     {
-      "src": "bokku/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     },
     {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1.js"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
