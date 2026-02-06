@@ -2,7 +2,6 @@
   "version": 2,
   "installCommand": "npm --prefix bokku install",
   "buildCommand": "npm --prefix bokku run build",
-  "outputDirectory": "bokku/dist",
   "builds": [
     {
       "src": "bokku/package.json",
@@ -19,14 +18,14 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "api/$1.js"
+      "dest": "/api/$1.js"
     },
     {
       "handle": "filesystem"
     },
     {
       "src": "/(.*)",
-      "dest": "bokku/dist/index.html"
+      "dest": "/index.html"
     }
   ]
 }
