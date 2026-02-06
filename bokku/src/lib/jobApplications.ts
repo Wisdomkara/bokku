@@ -9,7 +9,7 @@ type JobApplicationInput = {
 };
 
 // Use backend API instead of direct Supabase connection
-const BACKEND_API_URL = import.meta.env.VITE_BACKEND_API_URL || 'http://localhost:3001';
+const BACKEND_API_URL = import.meta.env.VITE_BACKEND_API_URL || "";
 
 export const submitJobApplication = async (input: JobApplicationInput) => {
   const response = await fetch(`${BACKEND_API_URL}/api/submit-application`, {
