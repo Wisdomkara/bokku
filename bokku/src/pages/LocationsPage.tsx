@@ -42,7 +42,7 @@ type GoogleMapsWindow = Window & {
 const LocationsPage = () => {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined;
   const [searchParams] = useSearchParams();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(searchParams.get("query") ?? "");
   const [userPosition, setUserPosition] = useState<GeoPosition | null>(null);
   const [geoStatus, setGeoStatus] = useState<"idle" | "loading" | "denied">(
     "idle"
@@ -80,14 +80,6 @@ const LocationsPage = () => {
     }, 0);
     return () => window.clearTimeout(timeoutId);
   }, []);
-
-  useEffect(() => {
-    const paramQuery = searchParams.get("query");
-    setQuery((prev) => {
-      const nextQuery = paramQuery ?? "";
-      return prev === nextQuery ? prev : nextQuery;
-    });
-  }, [searchParams]);
 
   useEffect(() => {
     if (!apiKey || !mapContainerRef.current || mapInstanceRef.current) return;
