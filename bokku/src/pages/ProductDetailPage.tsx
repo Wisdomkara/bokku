@@ -1,8 +1,6 @@
 import { Link, useParams } from "react-router-dom";
-import { useState } from "react";
 import { products } from "../data/products";
 import { getCategoryImage } from "../data/categoryImages";
-import { useCart } from "../context/CartContext";
 
 const ProductDetailPage = () => {
   const { slug } = useParams();
@@ -27,26 +25,6 @@ const ProductDetailPage = () => {
     (item) => item.category === product.category && item.slug !== product.slug,
   ).slice(0, 4);
 
-  const { addToCart } = useCart();
-  const [quantity, setQuantity] = useState(1);
-
-  const handleQuantityChange = (delta: number) => {
-    const newQty = quantity + delta;
-    if (newQty >= 1) setQuantity(newQty);
-  };
-
-  const handleAddToCart = () => {
-    if (product) {
-      addToCart({
-        id: product.slug, // using slug as id for now
-        name: product.name,
-        price: product.price,
-        image: product.image || getCategoryImage(product.category),
-        category: product.category,
-      }, quantity);
-      // Optionally reset quantity or show toast
-    }
-  };
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 md:px-8 lg:py-12">
@@ -100,60 +78,6 @@ const ProductDetailPage = () => {
             </p>
           </div>
 
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <div className="flex items-center rounded-full border border-slate-200">
-              <button 
-                onClick={() => handleQuantityChange(-1)}
-                className="h-12 w-12 text-slate-500 hover:text-slate-900 transition"
-              >
-                <i className="fa-solid fa-minus" />
-              </button>
-              <input 
-                type="text" 
-                value={quantity} 
-                readOnly 
-                className="h-12 w-12 text-center text-slate-900 font-semibold focus:outline-none"
-              />
-              <button 
-                onClick={() => handleQuantityChange(1)}
-                className="h-12 w-12 text-slate-500 hover:text-slate-900 transition"
-              >
-                <i className="fa-solid fa-plus" />
-              </button>
-            </div>
-            
-            <button 
-              onClick={handleAddToCart}
-              className="flex-1 rounded-full bg-blue-950 px-8 py-3 text-base font-bold text-white shadow-lg shadow-slate-900/20 transition hover:bg-slate-800 hover:-translate-y-1 active:scale-95"
-            >
-              Add to Cart
-            </button>
-            
-            <button className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 text-slate-900 transition hover:border-slate-300 hover:bg-slate-50">
-              <i className="fa-regular fa-heart" />
-            </button>
-          </div>
-
-          <div className="mt-8 grid grid-cols-2 gap-4 border-t border-slate-100 pt-8">
-            <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600">
-                <i className="fa-solid fa-truck-fast" />
-              </div>
-              <div className="text-sm">
-                <span className="block font-semibold text-slate-900">Fast Delivery</span>
-                <span className="text-slate-500">2-3 business days</span>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-50 text-green-600">
-                <i className="fa-solid fa-shield-halved" />
-              </div>
-              <div className="text-sm">
-                <span className="block font-semibold text-slate-900">Quality Guarantee</span>
-                <span className="text-slate-500">Verified authentic</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -192,7 +116,7 @@ const ProductDetailPage = () => {
                       {item.price}
                     </span>
                     <span className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-900 transition group-hover:bg-primary group-hover:text-white">
-                      <i className="fa-solid fa-plus text-xs" />
+                      <i className="fa-solid fa-arrow-right text-xs" />
                     </span>
                   </div>
                 </div>

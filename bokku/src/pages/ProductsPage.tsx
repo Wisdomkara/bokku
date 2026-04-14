@@ -88,7 +88,7 @@ const ProductsPage = () => {
                   {product.price}
                 </span>
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-900 transition group-hover:bg-primary group-hover:text-white">
-                  <i className="fa-solid fa-plus text-xs" />
+                  <i className="fa-solid fa-arrow-right text-xs" />
                 </span>
               </div>
             </div>

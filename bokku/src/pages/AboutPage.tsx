@@ -87,6 +87,7 @@ const AboutPage = () => {
                  { year: "2020", text: "Expanded same-day delivery and opened flagship warehouses." },
                  { year: "2023", text: "Scaled nationwide coverage with specialized cold-chain logistics." },
                  { year: "2025", text: "Introduced smart savings, loyalty rewards, and pickup services." },
+                 { year: "2026", text: "A landmark year of global ambition — Bokku is boldly opening new stores across African markets and beyond, bringing our signature retail experience to millions of new households worldwide. The world is just getting started with Bokku! 🌍" },
                ].map((item) => (
                  <div key={item.year} className="relative pl-8 md:flex md:items-center md:gap-12 md:pl-0">
                    <div className="md:w-1/2 md:text-right md:pr-12">

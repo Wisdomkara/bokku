@@ -12,12 +12,16 @@ const Footer = () => {
   return (
     <footer className="bg-blue-950 text-white border-t-4 border-yellow-400">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 py-16 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-        {/* Column 1 */}
+        {/* Column 1 — Quick Links */}
         <div className="flex flex-col gap-6">
           <h3 className="text-lg font-bold text-yellow-400 font-display">QUICK LINKS</h3>
           <div className="flex flex-col gap-3 text-sm text-slate-300">
             <Link to="/" className="hover:text-yellow-400 transition-colors">Home</Link>
             <Link to="/products" className="hover:text-yellow-400 transition-colors">Products</Link>
+            <Link to="/career" className="hover:text-yellow-400 transition-colors">Career</Link>
+            <Link to="/locations" className="hover:text-yellow-400 transition-colors">Store Locations</Link>
+            <Link to="/about" className="hover:text-yellow-400 transition-colors">About Us</Link>
+            <Link to="/faq" className="hover:text-yellow-400 transition-colors">FAQs</Link>
           </div>
           <button
             type="button"
@@ -28,30 +32,32 @@ const Footer = () => {
           </button>
         </div>
 
-        {/* Column 2 */}
+        {/* Column 2 — Explore Bokku */}
         <div className="flex flex-col gap-6">
           <h3 className="text-lg font-bold text-yellow-400 font-display">EXPLORE BOKKU</h3>
           <div className="flex flex-col gap-3 text-sm text-slate-300">
-            <Link to="/explore/bakery-deli" className="hover:text-yellow-400 transition-colors">Bakery & Deli</Link>
-            <Link to="/explore/fruits-vegetables" className="hover:text-yellow-400 transition-colors">Fruits & Vegetables</Link>
-            <Link to="/explore/meat-poultry" className="hover:text-yellow-400 transition-colors">Meat & Poultry</Link>
-            <Link to="/explore/recipes" className="hover:text-yellow-400 transition-colors">Recipes</Link>
-            <Link to="/explore/wine-liquor" className="hover:text-yellow-400 transition-colors">Wine & Liquor</Link>
-            <Link to="/explore/baby" className="hover:text-yellow-400 transition-colors">Baby</Link>
+            <Link to="/products?category=Bakery" className="hover:text-yellow-400 transition-colors">Bakery &amp; Deli</Link>
+            <Link to="/products?category=Fruits+%26+Vegetables" className="hover:text-yellow-400 transition-colors">Fruits &amp; Vegetables</Link>
+            <Link to="/products?category=Meat+%26+Poultry" className="hover:text-yellow-400 transition-colors">Meat &amp; Poultry</Link>
+            <Link to="/products?category=Beverages" className="hover:text-yellow-400 transition-colors">Beverages</Link>
+            <Link to="/products?category=Household" className="hover:text-yellow-400 transition-colors">Household Essentials</Link>
+            <Link to="/products?topSelling=true" className="hover:text-yellow-400 transition-colors">Best Sellers</Link>
           </div>
         </div>
 
-        {/* Column 3 */}
+        {/* Column 3 — Work With Us */}
         <div className="flex flex-col gap-6">
-          <h3 className="text-lg font-bold text-yellow-400 font-display">TERMS & CONDITIONS</h3>
+          <h3 className="text-lg font-bold text-yellow-400 font-display">WORK WITH US</h3>
           <div className="flex flex-col gap-3 text-sm text-slate-300">
-            <Link to="/cookie-policy" className="hover:text-yellow-400 transition-colors">Cookie Policy</Link>
-            <Link to="/data-privacy" className="hover:text-yellow-400 transition-colors">Data Privacy Statement</Link>
-            <Link to="/website-usage" className="hover:text-yellow-400 transition-colors">Website Usage Policy</Link>
+            <Link to="/work-with-us" className="hover:text-yellow-400 transition-colors">Partner Overview</Link>
+            <Link to="/work-with-us/supplier" className="hover:text-yellow-400 transition-colors">Become a Supplier</Link>
+            <Link to="/work-with-us/landlord-agencies" className="hover:text-yellow-400 transition-colors">Landlord &amp; Agencies</Link>
+            <Link to="/career" className="hover:text-yellow-400 transition-colors">Join Our Team</Link>
+            <Link to="/faq" className="hover:text-yellow-400 transition-colors">Help &amp; FAQs</Link>
           </div>
         </div>
 
-        {/* Column 4 */}
+        {/* Column 4 — Contact */}
         <div className="flex flex-col gap-6">
           <h3 className="text-lg font-bold text-yellow-400 font-display">CONTACT US</h3>
           <div className="flex flex-col gap-4 text-sm text-slate-300">
@@ -62,6 +68,12 @@ const Footer = () => {
             <div>
               <p className="font-semibold text-white">Telephone:</p>
               <p>+234 809 432 1111</p>
+            </div>
+            <div>
+              <p className="font-semibold text-white">Find a Store:</p>
+              <Link to="/locations" className="inline-flex items-center gap-1.5 text-yellow-400 hover:text-white transition-colors font-semibold">
+                <i className="fa-solid fa-map-location-dot" /> View all locations
+              </Link>
             </div>
           </div>
         </div>

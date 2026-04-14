@@ -1,14 +1,13 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { searchItems } from "../data/searchIndex";
-import { useCart } from "../context/CartContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [mobileWorkOpen, setMobileWorkOpen] = useState(true); // Default open on mobile for better visibility
   const location = useLocation();
-  const { openCart, cartItems } = useCart();
+
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
   const mobileToggleRef = useRef<HTMLButtonElement | null>(null);
   const prevPathRef = useRef(location.pathname);
@@ -270,18 +269,7 @@ const Navbar = () => {
             <i className="fa-regular fa-user" />
           </button>
 
-          {/* Cart */}
-          <button
-            onClick={openCart}
-            className="group relative flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/25 transition-all hover:scale-105 hover:bg-primary-dark active:scale-95"
-          >
-            <i className="fa-solid fa-cart-shopping transition-transform group-hover:rotate-[-10deg]" />
-            {cartItems.length > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-xs font-bold text-black ring-2 ring-white animate-in zoom-in duration-300">
-                {cartItems.length}
-              </span>
-            )}
-          </button>
+
 
           {/* Mobile Menu Toggle */}
           <button

@@ -57,9 +57,9 @@ const TopSellingProducts = () => {
                   <span className="text-xl font-bold text-blue-950">
                     {product.price}
                   </span>
-                  <button className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-blue-950 transition hover:bg-primary hover:text-white">
-                    <i className="fa-solid fa-plus" />
-                  </button>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-blue-950 transition group-hover:bg-primary group-hover:text-white">
+                    <i className="fa-solid fa-arrow-right text-sm" />
+                  </span>
                 </div>
               </div>
             </Link>

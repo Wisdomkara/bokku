@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PageLayout from "./PageLayout";
 
 const SupplierPage = () => {
@@ -118,9 +119,12 @@ const SupplierPage = () => {
               Ready to grow with a partner that values quality, scale, and
               long-term collaboration? Visit a bokku! store to get started.
             </p>
-            <button className="inline-flex h-12 items-center justify-center rounded-full bg-white px-8 text-base font-bold text-primary transition hover:bg-slate-100">
-               Find a store near you
-            </button>
+             <Link
+               to="/locations"
+               className="inline-flex h-12 items-center gap-2 justify-center rounded-full bg-white px-8 text-base font-bold text-primary transition hover:bg-slate-100"
+             >
+               <i className="fa-solid fa-map-location-dot" /> Find a store near you
+             </Link>
          </div>
       </div>
     </PageLayout>

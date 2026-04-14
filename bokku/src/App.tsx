@@ -13,8 +13,7 @@ import SupplierPage from "./pages/SupplierPage";
 import WorkWithUsPage from "./pages/WorkWithUsPage";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import { CartProvider } from "./context/CartContext";
-import CartDrawer from "./components/CartDrawer";
+
 
 const ScrollToTop = () => {
   const { pathname, search, hash } = useLocation();
@@ -29,33 +28,30 @@ const ScrollToTop = () => {
 const App = () => {
   return (
     <BrowserRouter>
-      <CartProvider>
-        <div className="flex min-h-screen flex-col bg-[var(--page-bg)] font-sans text-[var(--text-main)] antialiased selection:bg-primary/20 selection:text-primary">
-          <ScrollToTop />
-          <Navbar />
-          <CartDrawer />
+      <div className="flex min-h-screen flex-col bg-[var(--page-bg)] font-sans text-[var(--text-main)] antialiased selection:bg-primary/20 selection:text-primary">
+        <ScrollToTop />
+        <Navbar />
 
-          <main className="flex-1 w-full">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/products" element={<ProductsPage />} />
-              <Route path="/products/:slug" element={<ProductDetailPage />} />
-              <Route path="/career" element={<CareerPage />} />
-              <Route path="/work-with-us" element={<WorkWithUsPage />} />
-              <Route path="/work-with-us/supplier" element={<SupplierPage />} />
-              <Route
-                path="/work-with-us/landlord-agencies"
-                element={<LandlordAgenciesPage />}
-              />
-              <Route path="/locations" element={<LocationsPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/faq" element={<FaqPage />} />
-              <Route path="/explore/:slug" element={<ExploreArticlePage />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </CartProvider>
+        <main className="flex-1 w-full">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/products/:slug" element={<ProductDetailPage />} />
+            <Route path="/career" element={<CareerPage />} />
+            <Route path="/work-with-us" element={<WorkWithUsPage />} />
+            <Route path="/work-with-us/supplier" element={<SupplierPage />} />
+            <Route
+              path="/work-with-us/landlord-agencies"
+              element={<LandlordAgenciesPage />}
+            />
+            <Route path="/locations" element={<LocationsPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/faq" element={<FaqPage />} />
+            <Route path="/explore/:slug" element={<ExploreArticlePage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 };

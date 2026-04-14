@@ -107,7 +107,7 @@ const HomeHero = () => {
                   href={slide.link}
                   className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-blue-950 transition hover:bg-yellow-300 hover:-translate-y-1"
                 >
-                  Shop Now <i className="fa-solid fa-arrow-right" />
+                  Browse Products <i className="fa-solid fa-arrow-right" />
                 </a>
               </div>
             </div>
