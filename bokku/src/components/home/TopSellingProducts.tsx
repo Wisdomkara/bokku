@@ -24,10 +24,10 @@ const TopSellingProducts = () => {
         <div className="mb-12 grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
           <div>
           
-            <h2 className="mt-5 text-3xl font-bold text-slate-950 md:text-5xl">
-              High-demand picks, presented like a trusted dashboard.
+            <h2 className="mt-5 text-4xl font-bold text-slate-950 md:text-3xl">
+              High-demand picks, presented like <br /> a trusted dashboard.
             </h2>
-            <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
+            <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
               Hover or focus a product to update the live preview. Each card is
               built for fast scanning, clear pricing, and confident movement.
             </p>

@@ -37,10 +37,10 @@ const CategoryGrid = () => {
         <div className="mb-12 grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
           <div>
            
-            <h2 className="mt-5 max-w-3xl text-3xl font-bold tracking-tight text-slate-950 md:text-5xl">
-              Browse by category with a cleaner scan-first layout.
+            <h2 className="mt-5 max-w-3xl text-4xl font-bold tracking-tight text-slate-950 md:text-3xl">
+              Browse by category with a <br /> cleaner scan-first layout.
             </h2>
-            <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
+            <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
               Product groups now behave like secure tiles: clear counts,
               stronger focus states, and glass highlights that move from the
               container edges.

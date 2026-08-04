@@ -17,10 +17,10 @@ const ExploreBokku = () => {
               <i className="fa-solid fa-compass" aria-hidden="true" />
               Explore intelligence
             </span>
-            <h2 className="mt-5 text-3xl font-bold tracking-tight text-slate-950 md:text-5xl">
-              Stories and guides with a polished command-center finish.
+            <h2 className="mt-5 max-w-3xl text-5xl font-bold tracking-tight text-slate-950 md:text-3xl">
+              Stories and guides with a <br /> polished command-center finish.
             </h2>
-            <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
+            <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
               Move through Bokku collections with richer image surfaces,
               directional glass highlights, and focused article previews.
             </p>
