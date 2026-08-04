@@ -23,10 +23,7 @@ const TopSellingProducts = () => {
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-yellow-200 bg-yellow-50 px-4 py-2 text-xs font-bold uppercase text-yellow-700">
-              <i className="fa-solid fa-signal" aria-hidden="true" />
-              Best-seller signal
-            </span>
+          
             <h2 className="mt-5 text-3xl font-bold text-slate-950 md:text-5xl">
               High-demand picks, presented like a trusted dashboard.
             </h2>

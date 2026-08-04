@@ -114,7 +114,7 @@ const AboutPage = () => {
           </p>
           <Link
             to="/products"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-3 text-base font-bold text-primary transition hover:bg-slate-100"
+            className="inline-flex items-center gap-2 rounded-full px-8 py-3 text-base font-bold text-primary transition  hover:text-blue-600"
           >
             Start Shopping <i className="fa-solid fa-arrow-right" />
           </Link>

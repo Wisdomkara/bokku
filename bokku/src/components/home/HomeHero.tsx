@@ -107,9 +107,9 @@ const HomeHero = () => {
   return (
     <section
       ref={heroRef}
-      className="relative left-1/2 right-1/2 -translate-x-1/2 w-screen max-w-none overflow-hidden px-4 py-4 md:px-8 lg:px-12"
+      className="relative left-1/2 right-1/2 -translate-x-1/2 w-screen max-w-none overflow-hidden"
     >
-      <div className="relative h-[65vh] min-h-125 w-full overflow-hidden rounded-4xl shadow-2xl">
+      <div className="relative h-[65vh] min-h-125 w-full overflow-hidden shadow-2xl">
         {/* Slides */}
         {slides.map((slide, index) => {
           const isActive = index === activeSlide;

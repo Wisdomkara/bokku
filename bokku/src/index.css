@@ -13,6 +13,18 @@
   
   --font-sans: "Noto Sans", sans-serif;
   --font-display: "Noto Sans", sans-serif;
+
+  --color-blue-50: #f0f4ff;
+  --color-blue-100: #e0e8ff;
+  --color-blue-200: #c2d1ff;
+  --color-blue-300: #94adff;
+  --color-blue-400: #6180ff;
+  --color-blue-500: #0000ff;
+  --color-blue-600: #0000ff;
+  --color-blue-700: #0000ff;
+  --color-blue-800: #0000ff;
+  --color-blue-900: #0000ff;
+  --color-blue-950: #0000ff;
 }
 
 :root {

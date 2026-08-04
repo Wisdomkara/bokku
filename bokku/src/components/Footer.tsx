@@ -80,7 +80,7 @@ const Footer = () => {
       </div>
 
       <div className="border-t border-white/10 bg-blue-900/50 py-8 text-center text-xs text-slate-400">
-        © Retail Supermarkets Nigeria Limited 2025. All Rights Reserved.
+        © Retail Supermarkets Nigeria Limited 2026. All Rights Reserved.
       </div>
 
       {isSubscribeOpen && (

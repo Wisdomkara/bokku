@@ -36,10 +36,7 @@ const CategoryGrid = () => {
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-xs font-bold uppercase text-blue-700">
-              <i className="fa-solid fa-layer-group" aria-hidden="true" />
-              Department grid
-            </span>
+           
             <h2 className="mt-5 max-w-3xl text-3xl font-bold tracking-tight text-slate-950 md:text-5xl">
               Browse by category with a cleaner scan-first layout.
             </h2>
