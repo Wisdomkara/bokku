@@ -264,13 +264,6 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Account */}
-          <button className="hidden lg:flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition-all hover:border-primary hover:text-primary hover:shadow-lg hover:shadow-primary/10">
-            <i className="fa-regular fa-user" />
-          </button>
-
-
-
           {/* Mobile Menu Toggle */}
           <button
             type="button"
@@ -419,21 +412,6 @@ const Navbar = () => {
                 </div>
                 About
               </NavLink>
-            </div>
-
-            {/* Mobile Footer Area */}
-            <div className="border-t border-slate-100 px-4 py-4">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-semibold text-slate-500">
-                  My Account
-                </span>
-                <button
-                  type="button"
-                  className="h-10 w-10 flex items-center justify-center rounded-full bg-slate-50 text-slate-600"
-                >
-                  <i className="fa-regular fa-user" />
-                </button>
-              </div>
             </div>
           </div>
         </div>
